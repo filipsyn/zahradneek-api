@@ -1,11 +1,20 @@
+using Microsoft.EntityFrameworkCore;
+using Npgsql;
+using Zahradneek.Api.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Retrieving connection string
+var connectionStringBuilder =
+    new NpgsqlConnectionStringBuilder(builder.Configuration.GetConnectionString("Zahradneek-Pg"));
+var connectionString = connectionStringBuilder.ConnectionString;
 
+// Registering services
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddDbContext<DataContext>(options => options.UseNpgsql(connectionString: connectionString));
+
 
 var app = builder.Build();
 
