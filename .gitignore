@@ -41,3 +41,9 @@ artifacts/
 
 # Draw.io
 *.bkp
+
+# MacOS specific
+.DS_Store
+
+# .env
+**/.env
