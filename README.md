@@ -23,14 +23,10 @@ cp .env.example .env
 # Step 3: Spin-up the database image
 docker-compose up -d
 
-# (Optional) Step 4: If you don't already have it installed
-# Install entity framework tool
-
-
-# Step 5: Apply database migrations
+# Step 4: Apply database migrations
 dotnet ef database update
 
-# Step 6: Install dependencies and run the project
+# Step 5: Install dependencies and run the project
 dotnet run
 ```
 
