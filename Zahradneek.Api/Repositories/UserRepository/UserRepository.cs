@@ -29,9 +29,11 @@ public class UserRepository : IUserRepository
         return await _db.Users.Where(predicate: predicate).ToListAsync();
     }
 
-    public Task<bool> CreateAsync(User user)
+    public async Task<bool> CreateAsync(User user)
     {
-        throw new NotImplementedException();
+        _db.Users.Add(user);
+        var addedRowsCount = await _db.SaveChangesAsync();
+        return (addedRowsCount == 1);
     }
 
     public Task<bool> UpdateAsync(User user)
