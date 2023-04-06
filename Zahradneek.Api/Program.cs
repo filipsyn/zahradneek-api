@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Retrieving connection string
 var connectionStringBuilder =
-    new NpgsqlConnectionStringBuilder(builder.Configuration.GetConnectionString("Zahradneek-Pg"));
+    new NpgsqlConnectionStringBuilder(builder.Configuration.GetConnectionString("ZahradneekPg"));
 var connectionString = connectionStringBuilder.ConnectionString;
 
 // Registering services
