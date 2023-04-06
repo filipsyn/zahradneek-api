@@ -14,20 +14,14 @@ public class UserRepository : IUserRepository
         _db = db;
     }
 
-    public async Task<User?> GetByIdAsync(Guid userId)
-    {
-        return await _db.Users.FirstOrDefaultAsync(user => user.Id == userId);
-    }
+    public async Task<User?> GetByIdAsync(Guid userId) =>
+        await _db.Users.FirstOrDefaultAsync(user => user.Id == userId);
 
-    public async Task<IEnumerable<User>> GetAllAsync()
-    {
-        return await _db.Users.ToListAsync();
-    }
+    public async Task<IEnumerable<User>> GetAllAsync() =>
+        await _db.Users.ToListAsync();
 
-    public async Task<IEnumerable<User>> GetWhereAsync(Expression<Func<User, bool>> predicate)
-    {
-        return await _db.Users.Where(predicate: predicate).ToListAsync();
-    }
+    public async Task<IEnumerable<User>> GetWhereAsync(Expression<Func<User, bool>> predicate) =>
+        await _db.Users.Where(predicate: predicate).ToListAsync();
 
     public async Task<bool> CreateAsync(User user)
     {
