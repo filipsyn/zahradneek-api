@@ -8,7 +8,7 @@ public interface IUserRepository
 
    public Task<IEnumerable<User>> GetAllAsync();
 
-   public Task<IEnumerable<User>> GetWhereAsync(Func<User, bool> predicate);
+   public Task<IEnumerable<User>> GetWhereAsync(Expression<Func<User, bool>> predicate);
 
    public Task<bool> CreateAsync(User user);
 
