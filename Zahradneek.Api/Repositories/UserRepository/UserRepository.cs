@@ -32,8 +32,8 @@ public class UserRepository : IUserRepository
     public async Task<bool> CreateAsync(User user)
     {
         _db.Users.Add(user);
-        var addedRowsCount = await _db.SaveChangesAsync();
-        return (addedRowsCount == 1);
+        var changedRowsCount = await _db.SaveChangesAsync();
+        return (changedRowsCount == 1);
     }
 
     public Task<bool> UpdateAsync(User user)
