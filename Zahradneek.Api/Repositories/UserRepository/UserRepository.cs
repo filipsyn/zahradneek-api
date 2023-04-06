@@ -43,8 +43,14 @@ public class UserRepository : IUserRepository
         return (changedRowsCount > 0);
     }
 
-    public Task<bool> DeleteByIdAsync(Guid userId)
+    public async Task<bool> DeleteByIdAsync(Guid userId)
     {
-        throw new NotImplementedException();
+        var foundUser = await this.GetByIdAsync(userId);
+        if (foundUser is null)
+            return false;
+
+        _db.Users.Remove(foundUser);
+        var changedRowsCount = await _db.SaveChangesAsync();
+        return (changedRowsCount == 1);
     }
 }
