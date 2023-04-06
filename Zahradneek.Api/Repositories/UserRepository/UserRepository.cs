@@ -36,9 +36,11 @@ public class UserRepository : IUserRepository
         return (changedRowsCount == 1);
     }
 
-    public Task<bool> UpdateAsync(User user)
+    public async Task<bool> UpdateAsync(User user)
     {
-        throw new NotImplementedException();
+        _db.Entry(user).State = EntityState.Modified;
+        var changedRowsCount = await _db.SaveChangesAsync();
+        return (changedRowsCount > 0);
     }
 
     public Task<bool> DeleteByIdAsync(Guid userId)
