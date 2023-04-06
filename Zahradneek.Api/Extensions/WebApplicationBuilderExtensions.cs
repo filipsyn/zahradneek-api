@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 using Zahradneek.Api.Data;
+using Zahradneek.Api.Repositories.UserRepository;
+using Zahradneek.Api.Services.UserService;
 
 namespace Zahradneek.Api.Extensions;
 
@@ -27,6 +29,12 @@ public static class WebApplicationBuilderExtensions
         builder.Services.AddDbContext<DataContext>(options =>
             options.UseNpgsql(connectionString: GetConnectionString(builder))
         );
+        
+        // Repositories
+        builder.Services.AddScoped<IUserRepository, UserRepository>();
+        
+        // Services
+        builder.Services.AddScoped<IUserService, UserService>();
 
         return builder;
     }
