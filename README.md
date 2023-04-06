@@ -30,6 +30,26 @@ dotnet ef database update
 dotnet run
 ```
 
+### Running on Windows (using PowerShell)
+```powershell
+# Step 1: Change into project folder
+cd Zahradneek.Api 
+
+# Step 2: Create .env from example file
+Copy-Item .\.env.example .\.env 
+
+# (Optional) Step 2a: Modify values in .env file
+
+# Step 3: Spin-up the database image
+docker-compose up -d
+
+# Step 4: Apply database migrations
+dotnet ef database update
+
+# Step 5: Install dependencies and run the project
+dotnet run
+```
+
 After you are done, you can shut down the Docker containers with
 ```shell
 docker-compose down
