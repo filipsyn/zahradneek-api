@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Zahradneek.Api.Models;
 
 namespace Zahradneek.Api.Data;
 
@@ -12,4 +13,6 @@ public class DataContext : DbContext
     {
         modelBuilder.UseSerialColumns();
     }
+
+    private DbSet<User> Users => Set<User>();
 }
