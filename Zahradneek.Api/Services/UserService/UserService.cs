@@ -18,7 +18,7 @@ public class UserService : IUserService
         _userRepository = userRepository;
     }
 
-    public async Task<UserInfoResponse> GetByIdAsync(Guid userId)
+    public async Task<UserInfoResponse> GetByIdAsync(int userId)
     {
         var user = await _userRepository.GetByIdAsync(userId);
 
@@ -50,7 +50,7 @@ public class UserService : IUserService
         }
     }
 
-    public async Task UpdateByIdAsync(UpdateUserRequest request, Guid userId)
+    public async Task UpdateByIdAsync(UpdateUserRequest request, int userId)
     {
         var user = await _userRepository.GetByIdAsync(userId);
 
@@ -61,7 +61,7 @@ public class UserService : IUserService
 
         try
         {
-            await _userRepository.UpdateAsync(updatedUser);
+            await _userRepository.UpdateAsync(updatedUser, userId);
         }
         catch (DbUpdateConcurrencyException)
         {
@@ -69,7 +69,7 @@ public class UserService : IUserService
         }
     }
 
-    public async Task DeleteByIdAsync(Guid userId)
+    public async Task DeleteByIdAsync(int userId)
     {
         var user = await _userRepository.GetByIdAsync(userId);
 

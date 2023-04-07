@@ -14,7 +14,7 @@ public class UserRepository : IUserRepository
         _db = db;
     }
 
-    public async Task<User?> GetByIdAsync(Guid userId) =>
+    public async Task<User?> GetByIdAsync(int userId) =>
         await _db.Users.FirstOrDefaultAsync(user => user.Id == userId);
 
     public async Task<IEnumerable<User>> GetAllAsync() =>
@@ -37,7 +37,7 @@ public class UserRepository : IUserRepository
         return (changedRowsCount > 0);
     }
 
-    public async Task<bool> DeleteByIdAsync(Guid userId)
+    public async Task<bool> DeleteByIdAsync(int userId)
     {
         var foundUser = await this.GetByIdAsync(userId);
         if (foundUser is null)

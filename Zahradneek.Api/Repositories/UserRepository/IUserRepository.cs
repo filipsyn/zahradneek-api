@@ -5,7 +5,7 @@ namespace Zahradneek.Api.Repositories.UserRepository;
 
 public interface IUserRepository
 {
-   public Task<User?> GetByIdAsync(Guid userId);
+   public Task<User?> GetByIdAsync(int userId);
 
    public Task<IEnumerable<User>> GetAllAsync();
 
@@ -13,7 +13,7 @@ public interface IUserRepository
 
    public Task<bool> CreateAsync(User user);
 
-   public Task<bool> UpdateAsync(User user);
+   public Task<bool> UpdateAsync(User updatedUser, int userId);
 
-   public Task<bool> DeleteByIdAsync(Guid userId);
+   public Task<bool> DeleteByIdAsync(int userId);
 }
