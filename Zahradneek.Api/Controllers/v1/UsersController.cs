@@ -5,7 +5,7 @@ using Zahradneek.Api.Services.UserService;
 namespace Zahradneek.Api.Controllers.v1;
 
 [ApiController]
-[Route("/users")]
+[Route("v1/users")]
 public class UsersController : ControllerBase
 {
     private readonly IUserService _userService;
