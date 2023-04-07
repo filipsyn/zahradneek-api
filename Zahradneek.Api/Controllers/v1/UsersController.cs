@@ -16,18 +16,21 @@ public class UsersController : ControllerBase
     }
 
     [HttpGet]
+    [ProducesResponseType(type: typeof(IEnumerable<UserInfoResponse>), statusCode: StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAll()
     {
         return Ok(await _userService.GetAllAsync());
     }
 
     [HttpGet("{userId}")]
+    [ProducesResponseType(type: typeof(UserInfoResponse), statusCode: StatusCodes.Status200OK)]
     public async Task<IActionResult> GetById(int userId)
     {
         return Ok(await _userService.GetByIdAsync(userId));
     }
 
     [HttpPost]
+    [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
     public async Task<IActionResult> Create(CreateUserRequest request)
     {
         await _userService.CreateAsync(request);
@@ -35,6 +38,7 @@ public class UsersController : ControllerBase
     }
 
     [HttpPut("{userId}")]
+    [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
     public async Task<IActionResult> UpdateById(UpdateUserRequest request, int userId)
     {
         await _userService.UpdateByIdAsync(request: request, userId: userId);
@@ -42,6 +46,9 @@ public class UsersController : ControllerBase
     }
 
     [HttpDelete("{userId}")]
+    [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
+    [ProducesResponseType(statusCode: StatusCodes.Status404NotFound)]
+    [ProducesResponseType(statusCode: StatusCodes.Status409Conflict)]
     public async Task<IActionResult> DeleteById(int userId)
     {
         await _userService.DeleteByIdAsync(userId);
