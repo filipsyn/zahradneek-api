@@ -1,6 +1,8 @@
 using System.Linq.Expressions;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Zahradneek.Api.Data;
+using Zahradneek.Api.Exceptions;
 using Zahradneek.Api.Models;
 
 namespace Zahradneek.Api.Repositories.UserRepository;
@@ -8,10 +10,12 @@ namespace Zahradneek.Api.Repositories.UserRepository;
 public class UserRepository : IUserRepository
 {
     private readonly DataContext _db;
+    private readonly IMapper _mapper;
 
-    public UserRepository(DataContext db)
+    public UserRepository(DataContext db, IMapper mapper)
     {
         _db = db;
+        _mapper = mapper;
     }
 
     public async Task<User?> GetByIdAsync(int userId) =>
@@ -30,11 +34,16 @@ public class UserRepository : IUserRepository
         return (changedRowsCount == 1);
     }
 
-    public async Task<bool> UpdateAsync(User user)
+    public async Task<bool> UpdateAsync(User updatedUser, int userId)
     {
-        _db.Entry(user).State = EntityState.Modified;
-        var changedRowsCount = await _db.SaveChangesAsync();
-        return (changedRowsCount > 0);
+        var user = await _db.Users.FirstOrDefaultAsync(u => u.Id == userId );
+        if (user is null)
+            throw new NotFoundException("User was not found");
+
+        _mapper.Map(updatedUser, user);
+        _db.Users.Update(user);
+        var changedRowCount = await _db.SaveChangesAsync();
+        return changedRowCount > 0;
     }
 
     public async Task<bool> DeleteByIdAsync(int userId)
