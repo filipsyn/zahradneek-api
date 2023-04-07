@@ -35,7 +35,7 @@ public class UserService : IUserService
         return _mapper.Map<IEnumerable<UserInfoResponse>>(users);
     }
 
-    public async Task<bool> CreateAsync(CreateUserRequest request)
+    public async Task CreateAsync(CreateUserRequest request)
     {
         var user = _mapper.Map<User>(request);
         user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.Password);
@@ -48,12 +48,9 @@ public class UserService : IUserService
         {
             throw new DbConflictException();
         }
-
-        // Assumes that unless user creation in repo has thrown, adding was successful
-        return true;
     }
 
-    public async Task<bool> UpdateByIdAsync(UpdateUserRequest request, Guid userId)
+    public async Task UpdateByIdAsync(UpdateUserRequest request, Guid userId)
     {
         var user = await _userRepository.GetByIdAsync(userId);
 
@@ -70,11 +67,9 @@ public class UserService : IUserService
         {
             throw new DbConflictException();
         }
-
-        return true;
     }
 
-    public async Task<bool> DeleteByIdAsync(Guid userId)
+    public async Task DeleteByIdAsync(Guid userId)
     {
         var user = await _userRepository.GetByIdAsync(userId);
 
@@ -89,7 +84,5 @@ public class UserService : IUserService
         {
             throw new DbConflictException();
         }
-
-        return true;
     }
 }
