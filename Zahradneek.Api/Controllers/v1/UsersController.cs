@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Zahradneek.Api.Contracts.v1;
 using Zahradneek.Api.Services.UserService;
 
 namespace Zahradneek.Api.Controllers.v1;
@@ -24,5 +25,12 @@ public class UsersController : ControllerBase
     public async Task<IActionResult> GetById(Guid userId)
     {
         return Ok(await _userService.GetByIdAsync(userId));
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Create(CreateUserRequest request)
+    {
+        await _userService.CreateAsync(request);
+        return NoContent();
     }
 }
