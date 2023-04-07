@@ -28,7 +28,7 @@ public class UserService : IUserService
         return _mapper.Map<UserInfoResponse>(user);
     }
 
-    public async Task<IEnumerable<UserInfoResponse>> GetAllAsync(Guid userId)
+    public async Task<IEnumerable<UserInfoResponse>> GetAllAsync()
     {
         var users = await _userRepository.GetAllAsync();
 
