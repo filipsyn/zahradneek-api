@@ -29,10 +29,11 @@ public static class WebApplicationBuilderExtensions
         builder.Services.AddDbContext<DataContext>(options =>
             options.UseNpgsql(connectionString: GetConnectionString(builder))
         );
-        
+        builder.Services.AddAutoMapper(typeof(Program).Assembly);
+
         // Repositories
         builder.Services.AddScoped<IUserRepository, UserRepository>();
-        
+
         // Services
         builder.Services.AddScoped<IUserService, UserService>();
 
