@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Zahradneek.Api.Contracts.v1;
 using Zahradneek.Api.Exceptions;
 using Zahradneek.Api.Models;
@@ -36,7 +37,20 @@ public class UserService : IUserService
 
     public async Task<bool> CreateAsync(CreateUserRequest request)
     {
-        throw new NotImplementedException();
+        var user = _mapper.Map<User>(request);
+        user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.Password);
+
+        try
+        {
+            await _userRepository.CreateAsync(user);
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            throw new DbConflictException();
+        }
+
+        // Assumes that unless user creation in repo has thrown, adding was successful
+        return true;
     }
 
     public async Task<bool> UpdateByIdAsync(UpdateUserRequest request, Guid userId)
