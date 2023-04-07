@@ -1,5 +1,7 @@
 using AutoMapper;
 using Zahradneek.Api.Contracts.v1;
+using Zahradneek.Api.Exceptions;
+using Zahradneek.Api.Models;
 using Zahradneek.Api.Repositories.UserRepository;
 
 namespace Zahradneek.Api.Services.UserService;
@@ -17,12 +19,19 @@ public class UserService : IUserService
 
     public async Task<UserInfoResponse> GetByIdAsync(Guid userId)
     {
-        throw new NotImplementedException();
+        var user = await _userRepository.GetByIdAsync(userId);
+
+        if (user is null)
+            throw new NotFoundException("User was not found");
+
+        return _mapper.Map<UserInfoResponse>(user);
     }
 
     public async Task<IEnumerable<UserInfoResponse>> GetAllAsync(Guid userId)
     {
-        throw new NotImplementedException();
+        var users = await _userRepository.GetAllAsync();
+
+        return _mapper.Map<IEnumerable<UserInfoResponse>>(users);
     }
 
     public async Task<bool> CreateAsync(CreateUserRequest request)
