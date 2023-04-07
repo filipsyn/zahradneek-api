@@ -55,11 +55,41 @@ public class UserService : IUserService
 
     public async Task<bool> UpdateByIdAsync(UpdateUserRequest request, Guid userId)
     {
-        throw new NotImplementedException();
+        var user = await _userRepository.GetByIdAsync(userId);
+
+        if (user is null)
+            throw new NotFoundException("User was not found");
+
+        var updatedUser = _mapper.Map<User>(request);
+
+        try
+        {
+            await _userRepository.UpdateAsync(updatedUser);
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            throw new DbConflictException();
+        }
+
+        return true;
     }
 
     public async Task<bool> DeleteByIdAsync(Guid userId)
     {
-        throw new NotImplementedException();
+        var user = await _userRepository.GetByIdAsync(userId);
+
+        if (user is null)
+            throw new NotFoundException("User was not found");
+
+        try
+        {
+            await _userRepository.DeleteByIdAsync(userId);
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            throw new DbConflictException();
+        }
+
+        return true;
     }
 }
