@@ -1,4 +1,5 @@
 using Zahradneek.Api.Extensions;
+using Zahradneek.Api.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,5 +19,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
 
 app.Run();
