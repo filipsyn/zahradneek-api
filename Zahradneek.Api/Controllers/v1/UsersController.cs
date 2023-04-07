@@ -33,4 +33,11 @@ public class UsersController : ControllerBase
         await _userService.CreateAsync(request);
         return NoContent();
     }
+
+    [HttpPut("{userId}")]
+    public async Task<IActionResult> UpdateById(UpdateUserRequest request, int userId)
+    {
+        await _userService.UpdateByIdAsync(request: request, userId: userId);
+        return NoContent();
+    }
 }
