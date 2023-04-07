@@ -1,4 +1,6 @@
+using System.Reflection;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using Npgsql;
 using Zahradneek.Api.Data;
 using Zahradneek.Api.Repositories.UserRepository;
@@ -25,7 +27,21 @@ public static class WebApplicationBuilderExtensions
     {
         builder.Services.AddControllers();
         builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
+        builder.Services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "Zahradneek API",
+                    Description = "👨🏻‍🌾 Server-side application for managing garden settlement",
+                });
+                options.MapType<DateOnly>(() => new OpenApiSchema
+                {
+                    Type = "string",
+                    Format = "date"
+                });
+            }
+        );
         builder.Services.AddDbContext<DataContext>(options =>
             options.UseNpgsql(connectionString: GetConnectionString(builder))
         );
