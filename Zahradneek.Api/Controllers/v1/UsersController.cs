@@ -40,4 +40,11 @@ public class UsersController : ControllerBase
         await _userService.UpdateByIdAsync(request: request, userId: userId);
         return NoContent();
     }
+
+    [HttpDelete("{userId}")]
+    public async Task<IActionResult> DeleteById(int userId)
+    {
+        await _userService.DeleteByIdAsync(userId);
+        return NoContent();
+    }
 }
