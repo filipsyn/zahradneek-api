@@ -24,14 +24,14 @@ public class UsersController : ControllerBase
 
     [HttpGet("{userId}")]
     [ProducesResponseType(type: typeof(UserInfoResponse), statusCode: StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetById(int userId)
+    public async Task<IActionResult> GetById([FromRoute] int userId)
     {
         return Ok(await _userService.GetByIdAsync(userId));
     }
 
     [HttpPost]
     [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
-    public async Task<IActionResult> Create(CreateUserRequest request)
+    public async Task<IActionResult> Create([FromBody] CreateUserRequest request)
     {
         await _userService.CreateAsync(request);
         return NoContent();
@@ -39,7 +39,7 @@ public class UsersController : ControllerBase
 
     [HttpPut("{userId}")]
     [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
-    public async Task<IActionResult> UpdateById(UpdateUserRequest request, int userId)
+    public async Task<IActionResult> UpdateById([FromBody] UpdateUserRequest request, [FromRoute] int userId)
     {
         await _userService.UpdateByIdAsync(request: request, userId: userId);
         return NoContent();
@@ -49,7 +49,7 @@ public class UsersController : ControllerBase
     [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
     [ProducesResponseType(statusCode: StatusCodes.Status404NotFound)]
     [ProducesResponseType(statusCode: StatusCodes.Status409Conflict)]
-    public async Task<IActionResult> DeleteById(int userId)
+    public async Task<IActionResult> DeleteById([FromRoute] int userId)
     {
         await _userService.DeleteByIdAsync(userId);
         return NoContent();
