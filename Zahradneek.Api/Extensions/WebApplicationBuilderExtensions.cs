@@ -32,6 +32,7 @@ public static class WebApplicationBuilderExtensions
                 NamingStrategy = new SnakeCaseNamingStrategy()
             };
         });
+        builder.Services.AddProblemDetails();
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen(options =>
             {
