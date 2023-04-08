@@ -1,6 +1,6 @@
-using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json.Serialization;
 using Npgsql;
 using Zahradneek.Api.Data;
 using Zahradneek.Api.Repositories.UserRepository;
@@ -25,7 +25,13 @@ public static class WebApplicationBuilderExtensions
     /// </remarks>
     public static WebApplicationBuilder RegisterServices(this WebApplicationBuilder builder)
     {
-        builder.Services.AddControllers();
+        builder.Services.AddControllers().AddNewtonsoftJson(options =>
+        {
+            options.SerializerSettings.ContractResolver = new DefaultContractResolver
+            {
+                NamingStrategy = new SnakeCaseNamingStrategy()
+            };
+        });
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen(options =>
             {
@@ -42,6 +48,7 @@ public static class WebApplicationBuilderExtensions
                 });
             }
         );
+        builder.Services.AddSwaggerGenNewtonsoftSupport();
         builder.Services.AddDbContext<DataContext>(options =>
             options.UseNpgsql(connectionString: GetConnectionString(builder))
         );
