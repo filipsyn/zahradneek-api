@@ -1,4 +1,4 @@
-using System.Text.Json;
+using Newtonsoft.Json;
 using Zahradneek.Api.Exceptions;
 
 namespace Zahradneek.Api.Middleware;
@@ -26,17 +26,13 @@ public class GlobalExceptionHandlingMiddleware
 
     private static Task HandleExceptionAsync(HttpContext context, Exception ex)
     {
-
         context.Response.ContentType = "application/json";
         context.Response.StatusCode = GetStatusCode(ex);
-        
-        var exceptionResult = JsonSerializer.Serialize(new
+
+        var exceptionResult = JsonConvert.SerializeObject(new
         {
             message = ex.Message,
-            //StackTrace = ex.StackTrace,
-            //statusCode = context.Response.StatusCode
         });
-
         return context.Response.WriteAsync(exceptionResult);
     }
 
