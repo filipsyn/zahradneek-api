@@ -16,6 +16,8 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("register")]
+    [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
+    [ProducesResponseType(statusCode: StatusCodes.Status409Conflict)]
     public async Task<IActionResult> Register([FromBody] CreateUserRequest request)
     {
         await _authService.RegisterAsync(request);
