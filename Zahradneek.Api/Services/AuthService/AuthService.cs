@@ -32,7 +32,7 @@ public class AuthService : IAuthService
         await _userService.CreateAsync(request);
     }
 
-    public async Task<string> LoginAsync(LoginRequest request)
+    public async Task<LoginResponse> LoginAsync(LoginRequest request)
     {
         var user = await _userRepository.GetByUsernameAsync(request.Username);
         if (user is null)
@@ -41,7 +41,7 @@ public class AuthService : IAuthService
         if (!await VerifyPasswordAsync(request))
             throw new IncorrectCredentialsException();
 
-        return GenerateJwtToken(user);
+        return new LoginResponse(GenerateJwtToken(user)); 
     }
 
     private async Task<bool> VerifyPasswordAsync(LoginRequest request)

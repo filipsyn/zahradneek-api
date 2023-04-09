@@ -6,5 +6,5 @@ public interface IAuthService
 {
     public Task RegisterAsync(CreateUserRequest request);
 
-    public Task<string> LoginAsync(LoginRequest request);
+    public Task<LoginResponse> LoginAsync(LoginRequest request);
 }
