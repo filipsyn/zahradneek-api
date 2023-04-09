@@ -42,6 +42,7 @@ public class GlobalExceptionHandlingMiddleware
         {
             { } t when t == typeof(NotFoundException) => StatusCodes.Status404NotFound,
             { } t when t == typeof(ValidationException) => StatusCodes.Status400BadRequest,
+            { } t when t == typeof(IncorrectCredentialsException) => StatusCodes.Status400BadRequest,
             { } t when t == typeof(DbConflictException) => StatusCodes.Status409Conflict,
             { } t when t == typeof(ConflictException) => StatusCodes.Status409Conflict,
             _ => StatusCodes.Status500InternalServerError
