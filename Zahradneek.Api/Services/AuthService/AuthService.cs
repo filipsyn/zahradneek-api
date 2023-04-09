@@ -34,7 +34,14 @@ public class AuthService : IAuthService
 
     public async Task<string> LoginAsync(LoginRequest request)
     {
-        throw new NotImplementedException();
+        var user = await _userRepository.GetByUsernameAsync(request.Username);
+        if (user is null)
+            throw new NotFoundException($"User {request.Username} was not found");
+
+        if (!await VerifyPasswordAsync(request))
+            throw new ValidationException("Incorrect credentials");
+
+        return GenerateJwtToken(user); 
     }
 
     private async Task<bool> VerifyPasswordAsync(LoginRequest request)
