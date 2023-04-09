@@ -54,6 +54,7 @@ public static class WebApplicationBuilderExtensions
             // options.UseNpgsql(connectionString: GetConnectionString(builder))
             options.UseMySQL(connectionString: GetConnectionString(builder))
         );
+        builder.Services.AddHealthChecks();
         builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
         // Repositories

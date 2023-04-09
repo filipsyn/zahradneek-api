@@ -20,6 +20,8 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+app.MapHealthChecks("/health");
+
 app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
 
 app.Run();
