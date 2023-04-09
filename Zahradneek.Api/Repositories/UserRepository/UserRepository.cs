@@ -27,6 +27,10 @@ public class UserRepository : IUserRepository
     public async Task<IEnumerable<User>> GetWhereAsync(Expression<Func<User, bool>> predicate) =>
         await _db.Users.Where(predicate: predicate).ToListAsync();
 
+    public async Task<User?> GetByUsernameAsync(string username) =>
+        await _db.Users.FirstOrDefaultAsync(u => u.Username == username);
+
+
     public async Task<bool> CreateAsync(User user)
     {
         _db.Users.Add(user);
@@ -36,7 +40,7 @@ public class UserRepository : IUserRepository
 
     public async Task<bool> UpdateAsync(User updatedUser, int userId)
     {
-        var user = await _db.Users.FirstOrDefaultAsync(u => u.Id == userId );
+        var user = await _db.Users.FirstOrDefaultAsync(u => u.Id == userId);
         if (user is null)
             throw new NotFoundException("User was not found");
 
