@@ -24,12 +24,8 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("login")]
-    public async Task<IActionResult> Login([FromBody] LoginRequest request)
-    {
-        var token = await _authService.LoginAsync(request);
-        return Ok(new
-        {
-            token = token
-        });
-    }
+    [ProducesResponseType(statusCode: StatusCodes.Status204NoContent, type: typeof(LoginResponse))]
+    [ProducesResponseType(statusCode: StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> Login([FromBody] LoginRequest request) =>
+        Ok(await _authService.LoginAsync(request));
 }
