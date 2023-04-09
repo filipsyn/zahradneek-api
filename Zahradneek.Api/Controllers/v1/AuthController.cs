@@ -22,4 +22,14 @@ public class AuthController : ControllerBase
 
         return NoContent();
     }
+
+    [HttpPost("login")]
+    public async Task<IActionResult> Login([FromBody] LoginRequest request)
+    {
+        var token = await _authService.LoginAsync(request);
+        return Ok(new
+        {
+            token = token
+        });
+    }
 }
