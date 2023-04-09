@@ -25,7 +25,7 @@ public class AuthService : IAuthService
 
     public async Task RegisterAsync(CreateUserRequest request)
     {
-        var existingUser = _userRepository.GetByUsernameAsync(request.Username);
+        var existingUser = await _userRepository.GetByUsernameAsync(request.Username);
         if (existingUser is not null)
             throw new ConflictException($"Username '{request.Username}' is taken");
 
@@ -35,13 +35,13 @@ public class AuthService : IAuthService
     public async Task<string> LoginAsync(LoginRequest request)
     {
         var user = await _userRepository.GetByUsernameAsync(request.Username);
-        if (user is not null)
+        if (user is null)
             throw new NotFoundException($"User {request.Username} was not found");
 
         if (!await VerifyPasswordAsync(request))
             throw new ValidationException("Incorrect credentials");
 
-        return GenerateJwtToken(user); 
+        return GenerateJwtToken(user);
     }
 
     private async Task<bool> VerifyPasswordAsync(LoginRequest request)
