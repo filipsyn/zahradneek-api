@@ -1,10 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
+using Zahradneek.Api.Contracts.v1;
 using Zahradneek.Api.Services.AuthService;
 
 namespace Zahradneek.Api.Controllers.v1;
 
 [ApiController]
-public class AuthController: ControllerBase
+[Route("/v1/auth")]
+public class AuthController : ControllerBase
 {
     private readonly IAuthService _authService;
 
@@ -12,5 +14,12 @@ public class AuthController: ControllerBase
     {
         _authService = authService;
     }
-    
+
+    [HttpPost("register")]
+    public async Task<IActionResult> Register([FromBody] CreateUserRequest request)
+    {
+        await _authService.RegisterAsync(request);
+
+        return NoContent();
+    }
 }
