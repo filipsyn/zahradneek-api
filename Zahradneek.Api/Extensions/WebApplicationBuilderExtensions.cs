@@ -4,6 +4,7 @@ using MySql.Data.MySqlClient;
 using Newtonsoft.Json.Serialization;
 using Zahradneek.Api.Data;
 using Zahradneek.Api.Repositories.UserRepository;
+using Zahradneek.Api.Services.AuthService;
 using Zahradneek.Api.Services.UserService;
 
 namespace Zahradneek.Api.Extensions;
@@ -62,6 +63,7 @@ public static class WebApplicationBuilderExtensions
 
         // Services
         builder.Services.AddScoped<IUserService, UserService>();
+        builder.Services.AddScoped<IAuthService, AuthService>();
 
         return builder;
     }
