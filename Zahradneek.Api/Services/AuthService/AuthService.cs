@@ -55,7 +55,7 @@ public class AuthService : IAuthService
         };
 
         var key = new SymmetricSecurityKey(
-            Encoding.UTF8.GetBytes(_configuration.GetSection("AppSettings:Token").Value!)
+            Encoding.UTF8.GetBytes(_configuration.GetSection("Token").Value!)
         );
 
         var credentials = new SigningCredentials(key: key, SecurityAlgorithms.HmacSha512Signature);
