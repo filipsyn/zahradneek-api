@@ -35,7 +35,7 @@ public class AuthService : IAuthService
     public async Task<string> LoginAsync(LoginRequest request)
     {
         var user = await _userRepository.GetByUsernameAsync(request.Username);
-        if (user is null)
+        if (user is not null)
             throw new NotFoundException($"User {request.Username} was not found");
 
         if (!await VerifyPasswordAsync(request))
