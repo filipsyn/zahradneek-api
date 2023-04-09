@@ -1,7 +1,11 @@
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using MySql.Data.MySqlClient;
 using Newtonsoft.Json.Serialization;
+using Swashbuckle.AspNetCore.Filters;
 using Zahradneek.Api.Data;
 using Zahradneek.Api.Repositories.UserRepository;
 using Zahradneek.Api.Services.AuthService;
@@ -48,14 +52,34 @@ public static class WebApplicationBuilderExtensions
                     Type = "string",
                     Format = "date"
                 });
+                options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+                {
+                    Description = "Standard authorization header using the Bearer scheme",
+                    In = ParameterLocation.Header,
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey,
+                });
+                options.OperationFilter<SecurityRequirementsOperationFilter>();
             }
         );
         builder.Services.AddSwaggerGenNewtonsoftSupport();
         builder.Services.AddDbContext<DataContext>(options =>
-            // options.UseNpgsql(connectionString: GetConnectionString(builder))
             options.UseMySQL(connectionString: GetConnectionString(builder))
         );
         builder.Services.AddHealthChecks();
+        builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey =
+                        new SymmetricSecurityKey(
+                            Encoding.UTF8.GetBytes(builder.Configuration.GetSection("Token").Value!)),
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                };
+            });
         builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
         // Repositories
