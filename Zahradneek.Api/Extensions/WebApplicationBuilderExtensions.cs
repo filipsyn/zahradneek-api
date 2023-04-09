@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using MySql.Data.MySqlClient;
 using Newtonsoft.Json.Serialization;
-using Npgsql;
 using Zahradneek.Api.Data;
 using Zahradneek.Api.Repositories.UserRepository;
 using Zahradneek.Api.Services.UserService;
@@ -51,7 +51,8 @@ public static class WebApplicationBuilderExtensions
         );
         builder.Services.AddSwaggerGenNewtonsoftSupport();
         builder.Services.AddDbContext<DataContext>(options =>
-            options.UseNpgsql(connectionString: GetConnectionString(builder))
+            // options.UseNpgsql(connectionString: GetConnectionString(builder))
+            options.UseMySQL(connectionString: GetConnectionString(builder))
         );
         builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
@@ -67,7 +68,8 @@ public static class WebApplicationBuilderExtensions
     private static string GetConnectionString(WebApplicationBuilder builder)
     {
         var connectionStringBuilder =
-            new NpgsqlConnectionStringBuilder(builder.Configuration.GetConnectionString("ZahradneekPg"));
+            // new NpgsqlConnectionStringBuilder(builder.Configuration.GetConnectionString("ZahradneekPg"));
+            new MySqlConnectionStringBuilder(builder.Configuration.GetConnectionString("ZahradneekMySQL"));
         return connectionStringBuilder.ConnectionString;
     }
 }
