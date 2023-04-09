@@ -36,10 +36,10 @@ public class AuthService : IAuthService
     {
         var user = await _userRepository.GetByUsernameAsync(request.Username);
         if (user is null)
-            throw new NotFoundException($"User {request.Username} was not found");
+            throw new IncorrectCredentialsException();
 
         if (!await VerifyPasswordAsync(request))
-            throw new ValidationException("Incorrect credentials");
+            throw new IncorrectCredentialsException();
 
         return GenerateJwtToken(user);
     }
@@ -48,7 +48,7 @@ public class AuthService : IAuthService
     {
         var user = await _userRepository.GetByUsernameAsync(request.Username);
         if (user is null)
-            throw new NotFoundException($"User {request.Username} was not found");
+            throw new IncorrectCredentialsException();
 
         return BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash);
     }
