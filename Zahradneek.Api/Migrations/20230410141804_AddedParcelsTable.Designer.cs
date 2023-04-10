@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Zahradneek.Api.Data;
 
@@ -10,43 +11,16 @@ using Zahradneek.Api.Data;
 namespace Zahradneek.Api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230410141804_AddedParcelsTable")]
+    partial class AddedParcelsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
-
-            modelBuilder.Entity("Zahradneek.Api.Models.Coordinate", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnOrder(0);
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<float>("Latitude")
-                        .HasColumnType("float");
-
-                    b.Property<float>("Longitude")
-                        .HasColumnType("float");
-
-                    b.Property<DateTime>("ModifiedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("ParcelId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ParcelId");
-
-                    b.ToTable("Coordinates");
-                });
 
             modelBuilder.Entity("Zahradneek.Api.Models.Parcel", b =>
                 {
@@ -119,17 +93,6 @@ namespace Zahradneek.Api.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Zahradneek.Api.Models.Coordinate", b =>
-                {
-                    b.HasOne("Zahradneek.Api.Models.Parcel", "Parcel")
-                        .WithMany("Coordinates")
-                        .HasForeignKey("ParcelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Parcel");
-                });
-
             modelBuilder.Entity("Zahradneek.Api.Models.Parcel", b =>
                 {
                     b.HasOne("Zahradneek.Api.Models.User", "Owner")
@@ -139,11 +102,6 @@ namespace Zahradneek.Api.Migrations
                         .IsRequired();
 
                     b.Navigation("Owner");
-                });
-
-            modelBuilder.Entity("Zahradneek.Api.Models.Parcel", b =>
-                {
-                    b.Navigation("Coordinates");
                 });
 
             modelBuilder.Entity("Zahradneek.Api.Models.User", b =>
