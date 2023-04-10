@@ -14,4 +14,6 @@ public class DataContext : DbContext
     }
 
     public DbSet<User> Users => Set<User>();
+    public DbSet<Parcel> Parcels => Set<Parcel>();
+    public DbSet<Coordinate> Coordinates => Set<Coordinate>();
 }
