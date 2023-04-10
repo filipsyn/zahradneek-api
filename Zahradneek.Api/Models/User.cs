@@ -10,4 +10,7 @@ public class User : BaseEntity
     public string Email { get; set; } = string.Empty;
     public string PhoneNumber { get; set; } = string.Empty;
     public DateTime DateOfBirth { get; set; }
+    
+    // Relationships
+    public List<Parcel> Parcels { get; set; }
 }
