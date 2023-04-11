@@ -11,8 +11,8 @@ using Zahradneek.Api.Data;
 namespace Zahradneek.Api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230410142538_AddedCoordinatesTable")]
-    partial class AddedCoordinatesTable
+    [Migration("20230411110523_ChangedNamingConvetionsInDatabase")]
+    partial class ChangedNamingConvetionsInDatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,28 +27,36 @@ namespace Zahradneek.Api.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
+                        .HasColumnName("id")
                         .HasColumnOrder(0);
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("created_at");
 
                     b.Property<float>("Latitude")
-                        .HasColumnType("float");
+                        .HasColumnType("float")
+                        .HasColumnName("latitude");
 
                     b.Property<float>("Longitude")
-                        .HasColumnType("float");
+                        .HasColumnType("float")
+                        .HasColumnName("longitude");
 
                     b.Property<DateTime>("ModifiedAt")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("modified_at");
 
                     b.Property<int>("ParcelId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("parcel_id");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_coordinates");
 
-                    b.HasIndex("ParcelId");
+                    b.HasIndex("ParcelId")
+                        .HasDatabaseName("ix_coordinates_parcel_id");
 
-                    b.ToTable("Coordinates");
+                    b.ToTable("coordinates", (string)null);
                 });
 
             modelBuilder.Entity("Zahradneek.Api.Models.Parcel", b =>
@@ -56,25 +64,32 @@ namespace Zahradneek.Api.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
+                        .HasColumnName("id")
                         .HasColumnOrder(0);
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("created_at");
 
                     b.Property<DateTime>("ModifiedAt")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("modified_at");
 
                     b.Property<string>("Name")
-                        .HasColumnType("longtext");
+                        .HasColumnType("longtext")
+                        .HasColumnName("name");
 
                     b.Property<int>("OwnerId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("owner_id");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_parcels");
 
-                    b.HasIndex("OwnerId");
+                    b.HasIndex("OwnerId")
+                        .HasDatabaseName("ix_parcels_owner_id");
 
-                    b.ToTable("Parcels");
+                    b.ToTable("parcels", (string)null);
                 });
 
             modelBuilder.Entity("Zahradneek.Api.Models.User", b =>
@@ -82,44 +97,55 @@ namespace Zahradneek.Api.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
+                        .HasColumnName("id")
                         .HasColumnOrder(0);
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("created_at");
 
                     b.Property<DateTime>("DateOfBirth")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("date_of_birth");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("longtext")
+                        .HasColumnName("email");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("longtext")
+                        .HasColumnName("first_name");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("longtext")
+                        .HasColumnName("last_name");
 
                     b.Property<DateTime>("ModifiedAt")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("modified_at");
 
                     b.Property<string>("PasswordHash")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("longtext")
+                        .HasColumnName("password_hash");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("longtext")
+                        .HasColumnName("phone_number");
 
                     b.Property<string>("Username")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("longtext")
+                        .HasColumnName("username");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_users");
 
-                    b.ToTable("Users");
+                    b.ToTable("users", (string)null);
                 });
 
             modelBuilder.Entity("Zahradneek.Api.Models.Coordinate", b =>
@@ -128,7 +154,8 @@ namespace Zahradneek.Api.Migrations
                         .WithMany("Coordinates")
                         .HasForeignKey("ParcelId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_coordinates_parcels_parcel_id");
 
                     b.Navigation("Parcel");
                 });
@@ -139,7 +166,8 @@ namespace Zahradneek.Api.Migrations
                         .WithMany("Parcels")
                         .HasForeignKey("OwnerId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_parcels_users_owner_id");
 
                     b.Navigation("Owner");
                 });
