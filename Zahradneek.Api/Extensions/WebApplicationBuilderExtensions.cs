@@ -7,6 +7,7 @@ using MySql.Data.MySqlClient;
 using Newtonsoft.Json.Serialization;
 using Swashbuckle.AspNetCore.Filters;
 using Zahradneek.Api.Data;
+using Zahradneek.Api.Repositories.ParcelRepository;
 using Zahradneek.Api.Repositories.UserRepository;
 using Zahradneek.Api.Services.AuthService;
 using Zahradneek.Api.Services.UserService;
@@ -84,6 +85,7 @@ public static class WebApplicationBuilderExtensions
 
         // Repositories
         builder.Services.AddScoped<IUserRepository, UserRepository>();
+        builder.Services.AddScoped<IParcelRepository, ParcelRepository>();
 
         // Services
         builder.Services.AddScoped<IUserService, UserService>();
