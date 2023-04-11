@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+
 namespace Zahradneek.Api.Models;
 
 public class Coordinate : BaseEntity
@@ -7,5 +9,6 @@ public class Coordinate : BaseEntity
 
     // Relationship
     public int ParcelId { get; set; }
-    public Parcel Parcel { get; set; } = new Parcel();
+    [JsonIgnore]
+    public Parcel Parcel { get; set; }
 }
