@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Zahradneek.Api.Contracts.v1;
+using Zahradneek.Api.Services.ParcelService;
 using Zahradneek.Api.Services.UserService;
 
 namespace Zahradneek.Api.Controllers.v1;
@@ -9,10 +10,12 @@ namespace Zahradneek.Api.Controllers.v1;
 public class UsersController : ControllerBase
 {
     private readonly IUserService _userService;
+    private readonly IParcelService _parcelService;
 
-    public UsersController(IUserService userService)
+    public UsersController(IUserService userService, IParcelService parcelService)
     {
         _userService = userService;
+        _parcelService = parcelService;
     }
 
     [HttpGet]
@@ -24,10 +27,15 @@ public class UsersController : ControllerBase
 
     [HttpGet("{userId}")]
     [ProducesResponseType(type: typeof(UserInfoResponse), statusCode: StatusCodes.Status200OK)]
+    [ProducesResponseType(statusCode: StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetById([FromRoute] int userId)
     {
         return Ok(await _userService.GetByIdAsync(userId));
     }
+
+    [HttpGet("{userId:int}/parcels")]
+    public async Task<IActionResult> GetAllParcels(int userId) =>
+        Ok(await _parcelService.GetAllByOwnerIdAsync(ownerId: userId));
 
     [HttpPost]
     [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
