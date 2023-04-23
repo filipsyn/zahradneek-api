@@ -6,13 +6,13 @@ public interface IParcelRepository
 {
     public Task<IEnumerable<Parcel>> GetAllAsync();
 
-    public Task<Parcel?> GetById(int parcelId);
+    public Task<Parcel?> GetByIdAsync(int parcelId);
 
-    public Task<IEnumerable<Parcel>> GetAllByOwnerId(int ownerId);
+    public Task<IEnumerable<Parcel>> GetAllByOwnerIdAsync(int ownerId);
 
     public Task CreateAsync(Parcel parcel);
 
-    public Task UpdateByIdAsync(Parcel parcel, int parcelId);
+    public Task UpdateByIdAsync(Parcel updatedParcel, int parcelId);
 
     public Task DeleteByIdAsync(int parcelId);
 }
