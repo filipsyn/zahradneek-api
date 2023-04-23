@@ -28,6 +28,7 @@ public class UsersController : ControllerBase
     public async Task<IActionResult> GetById([FromRoute] int userId) => Ok(await _userService.GetByIdAsync(userId));
 
     [HttpGet("{userId:int}/parcels")]
+    [ProducesResponseType(type: typeof(IEnumerable<ParcelInfoResponse>), statusCode: StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllParcels(int userId) =>
         Ok(await _parcelService.GetAllByOwnerIdAsync(ownerId: userId));
 
