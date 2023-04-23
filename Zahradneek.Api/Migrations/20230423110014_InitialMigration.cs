@@ -7,7 +7,7 @@ using MySql.EntityFrameworkCore.Metadata;
 namespace Zahradneek.Api.Migrations
 {
     /// <inheritdoc />
-    public partial class ChangedNamingConvetionsInDatabase : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

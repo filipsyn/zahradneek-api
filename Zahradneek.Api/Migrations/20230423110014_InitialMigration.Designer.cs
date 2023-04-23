@@ -11,8 +11,8 @@ using Zahradneek.Api.Data;
 namespace Zahradneek.Api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230411110523_ChangedNamingConvetionsInDatabase")]
-    partial class ChangedNamingConvetionsInDatabase
+    [Migration("20230423110014_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
