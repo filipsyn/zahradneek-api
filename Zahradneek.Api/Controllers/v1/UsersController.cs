@@ -20,18 +20,12 @@ public class UsersController : ControllerBase
 
     [HttpGet]
     [ProducesResponseType(type: typeof(IEnumerable<UserInfoResponse>), statusCode: StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetAll()
-    {
-        return Ok(await _userService.GetAllAsync());
-    }
+    public async Task<IActionResult> GetAll() => Ok(await _userService.GetAllAsync());
 
     [HttpGet("{userId}")]
     [ProducesResponseType(type: typeof(UserInfoResponse), statusCode: StatusCodes.Status200OK)]
     [ProducesResponseType(statusCode: StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetById([FromRoute] int userId)
-    {
-        return Ok(await _userService.GetByIdAsync(userId));
-    }
+    public async Task<IActionResult> GetById([FromRoute] int userId) => Ok(await _userService.GetByIdAsync(userId));
 
     [HttpGet("{userId:int}/parcels")]
     public async Task<IActionResult> GetAllParcels(int userId) =>
