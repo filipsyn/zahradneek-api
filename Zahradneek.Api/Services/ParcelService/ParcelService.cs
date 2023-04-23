@@ -1,7 +1,6 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Zahradneek.Api.Contracts.v1;
-using Zahradneek.Api.Data;
 using Zahradneek.Api.Exceptions;
 using Zahradneek.Api.Models;
 using Zahradneek.Api.Repositories.ParcelRepository;
