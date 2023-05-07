@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Zahradneek.Api.Contracts.v1;
 using Zahradneek.Api.Repositories.CoordinateRepository;
 using Zahradneek.Api.Services.CoordinateService;
 
@@ -17,6 +18,7 @@ public class CoordinatesController : ControllerBase
     }
 
     [HttpGet]
+    [ProducesResponseType(type: typeof(IEnumerable<CoordinateInfoResponse>), statusCode: StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAll() =>
         Ok(await _coordinateService.GetAllAsync());
 }
