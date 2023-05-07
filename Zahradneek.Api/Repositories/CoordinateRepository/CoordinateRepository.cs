@@ -30,7 +30,7 @@ public class CoordinateRepository : ICoordinateRepository
             .Where(coord => coord.Id == coordinateId)
             .FirstOrDefaultAsync();
 
-    public async Task CreateForParcelAsync(Coordinate coordinate)
+    public async Task CreateAsync(Coordinate coordinate)
     {
         _db.Coordinates.Add(coordinate);
         await _db.SaveChangesAsync();
