@@ -87,11 +87,13 @@ public static class WebApplicationBuilderExtensions
         // Repositories
         builder.Services.AddScoped<IUserRepository, UserRepository>();
         builder.Services.AddScoped<IParcelRepository, ParcelRepository>();
+        builder.Services.AddScoped<ICoordinateRepository, CoordinateRepository>();
 
         // Services
         builder.Services.AddScoped<IUserService, UserService>();
         builder.Services.AddScoped<IAuthService, AuthService>();
         builder.Services.AddScoped<IParcelService, ParcelService>();
+        builder.Services.AddScoped<ICoordinateService, CoordinateService>();
 
         return builder;
     }
