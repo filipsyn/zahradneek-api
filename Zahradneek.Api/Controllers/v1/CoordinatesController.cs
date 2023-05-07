@@ -15,4 +15,8 @@ public class CoordinatesController : ControllerBase
     {
         _coordinateService = coordinateService;
     }
+
+    [HttpGet]
+    public async Task<IActionResult> GetAll() =>
+        Ok(await _coordinateService.GetAllAsync());
 }
