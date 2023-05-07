@@ -17,10 +17,8 @@ public class CoordinateRepository : ICoordinateRepository
         _mapper = mapper;
     }
 
-    public async Task<IEnumerable<Coordinate>> GetAllForParcelAsync(int parcelId)
-    {
-        throw new NotImplementedException();
-    }
+    public async Task<IEnumerable<Coordinate>> GetAllAsync() =>
+        await _db.Coordinates.ToListAsync();
 
     public async Task<Coordinate> GetByIdAsync(int coordinateId)
     {
