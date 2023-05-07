@@ -49,6 +49,11 @@ public class CoordinateRepository : ICoordinateRepository
 
     public async Task DeleteByIdAsync(int coordinateId)
     {
-        throw new NotImplementedException();
+        var foundCoordinates = await this.GetByIdAsync(coordinateId);
+        if (foundCoordinates is null)
+            throw new NotFoundException("Coordinates were not found");
+
+        _db.Coordinates.Remove(foundCoordinates);
+        await _db.SaveChangesAsync();
     }
 }
