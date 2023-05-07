@@ -7,9 +7,11 @@ using MySql.Data.MySqlClient;
 using Newtonsoft.Json.Serialization;
 using Swashbuckle.AspNetCore.Filters;
 using Zahradneek.Api.Data;
+using Zahradneek.Api.Repositories.CoordinateRepository;
 using Zahradneek.Api.Repositories.ParcelRepository;
 using Zahradneek.Api.Repositories.UserRepository;
 using Zahradneek.Api.Services.AuthService;
+using Zahradneek.Api.Services.CoordinateService;
 using Zahradneek.Api.Services.ParcelService;
 using Zahradneek.Api.Services.UserService;
 
