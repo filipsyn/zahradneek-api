@@ -38,7 +38,13 @@ public class CoordinateRepository : ICoordinateRepository
 
     public async Task UpdateByIdAsync(int coordinateId, Coordinate updatedCoordinate)
     {
-        throw new NotImplementedException();
+        var coordinate = await _db.Coordinates.FirstOrDefaultAsync(c => c.Id == coordinateId);
+        if (coordinate is null)
+            throw new NotFoundException("Coordinates were not found");
+
+        _mapper.Map(updatedCoordinate, coordinate);
+        _db.Coordinates.Update(coordinate);
+        await _db.SaveChangesAsync();
     }
 
     public async Task DeleteByIdAsync(int coordinateId)
