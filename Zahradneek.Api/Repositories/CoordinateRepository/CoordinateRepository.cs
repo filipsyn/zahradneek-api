@@ -25,9 +25,15 @@ public class CoordinateRepository : ICoordinateRepository
             .Where(coord => coord.ParcelId == parcelId)
             .ToListAsync();
 
-    public async Task CreateForParcelAsync(int parcelId, Coordinate coordinate)
+    public async Task<Coordinate?> GetByIdAsync(int coordinateId) =>
+        await _db.Coordinates
+            .Where(coord => coord.Id == coordinateId)
+            .FirstOrDefaultAsync();
+
+    public async Task CreateForParcelAsync(Coordinate coordinate)
     {
-        throw new NotImplementedException();
+        _db.Coordinates.Add(coordinate);
+        await _db.SaveChangesAsync();
     }
 
     public async Task UpdateByIdAsync(int coordinateId, Coordinate updatedCoordinate)
