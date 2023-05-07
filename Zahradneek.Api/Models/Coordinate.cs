@@ -4,8 +4,8 @@ namespace Zahradneek.Api.Models;
 
 public class Coordinate : BaseEntity
 {
-    public float Longitude { get; set; }
-    public float Latitude { get; set; }
+    public double Longitude { get; set; }
+    public double Latitude { get; set; }
 
     // Relationship
     public int ParcelId { get; set; }
