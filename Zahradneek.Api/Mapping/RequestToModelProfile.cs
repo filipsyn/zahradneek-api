@@ -10,14 +10,11 @@ public class RequestToModelProfile : Profile
     {
         CreateMap<CreateUserRequest, User>();
         CreateMap<UpdateUserRequest, User>();
-        CreateMap<User, User>()
-            .ForMember(dest => dest.Id, opt => opt.Ignore())
-            .ForMember(dest => dest.PasswordHash, opt => opt.Ignore())
-            .ForMember(dest => dest.CreatedAt, opt => opt.Ignore());
-
 
         CreateMap<CreateParcelRequest, Parcel>();
         CreateMap<UpdateParcelRequest, Parcel>();
-        CreateMap<Parcel, Parcel>();
+
+        CreateMap<CreateCoordinateRequest, Coordinate>();
+        CreateMap<UpdateCoordinateRequest, Coordinate>();
     }
 }
