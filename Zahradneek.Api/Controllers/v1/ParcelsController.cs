@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Zahradneek.Api.Contracts.v1;
+using Zahradneek.Api.Services.CoordinateService;
 using Zahradneek.Api.Services.ParcelService;
 
 namespace Zahradneek.Api.Controllers.v1;
@@ -10,10 +11,12 @@ namespace Zahradneek.Api.Controllers.v1;
 public class ParcelsController : ControllerBase
 {
     private readonly IParcelService _parcelService;
+    private readonly ICoordinateService _coordinateService;
 
-    public ParcelsController(IParcelService parcelService)
+    public ParcelsController(IParcelService parcelService, ICoordinateService coordinateService)
     {
         _parcelService = parcelService;
+        _coordinateService = coordinateService;
     }
 
     [HttpGet]
@@ -26,6 +29,12 @@ public class ParcelsController : ControllerBase
     [ProducesResponseType(statusCode: StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetById([FromRoute] int parcelId) =>
         Ok(await _parcelService.GetByIdAsync(parcelId));
+
+    [HttpGet("{parcelId:int}/coordinates")]
+    [ProducesResponseType(type: typeof(IEnumerable<CoordinateInfoResponse>), statusCode: StatusCodes.Status200OK)]
+    [ProducesResponseType(statusCode: StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetCoordinatesForParcel([FromRoute] int parcelId) =>
+        Ok(await _coordinateService.GetAllForParcel(parcelId));
 
     [HttpPost]
     [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
