@@ -20,10 +20,10 @@ public class CoordinateRepository : ICoordinateRepository
     public async Task<IEnumerable<Coordinate>> GetAllAsync() =>
         await _db.Coordinates.ToListAsync();
 
-    public async Task<Coordinate> GetByIdAsync(int coordinateId)
-    {
-        throw new NotImplementedException();
-    }
+    public async Task<IEnumerable<Coordinate>> GetAllForParcelAsync(int parcelId) =>
+        await _db.Coordinates
+            .Where(coord => coord.ParcelId == parcelId)
+            .ToListAsync();
 
     public async Task CreateForParcelAsync(int parcelId, Coordinate coordinate)
     {
