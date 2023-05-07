@@ -11,7 +11,7 @@ public interface ICoordinateRepository
     public Task<IEnumerable<Coordinate>> GetAllForParcelAsync(int parcelId);
 
     // Get coordinate by id
-    public Task<Coordinate> GetByIdAsync(int coordinateId);
+    public Task<Coordinate?> GetByIdAsync(int coordinateId);
 
     // Create New coordinate for parcel
     public Task CreateForParcelAsync(int parcelId, Coordinate coordinate);
