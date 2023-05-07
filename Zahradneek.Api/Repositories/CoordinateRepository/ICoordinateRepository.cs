@@ -14,7 +14,7 @@ public interface ICoordinateRepository
     public Task<Coordinate?> GetByIdAsync(int coordinateId);
 
     // Create New coordinate for parcel
-    public Task CreateForParcelAsync(int parcelId, Coordinate coordinate);
+    public Task CreateForParcelAsync(Coordinate coordinate);
 
     // Update coordinate
     public Task UpdateByIdAsync(int coordinateId, Coordinate updatedCoordinate);
