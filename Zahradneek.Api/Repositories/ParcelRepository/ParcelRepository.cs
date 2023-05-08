@@ -25,6 +25,7 @@ public class ParcelRepository : IParcelRepository
     public async Task<Parcel?> GetByIdAsync(int parcelId) =>
         await _db.Parcels
             .Where(x => x.Id == parcelId)
+            .Include(x => x.Coordinates)
             .FirstOrDefaultAsync();
 
     public async Task<IEnumerable<Parcel>> GetAllByOwnerIdAsync(int ownerId) =>
