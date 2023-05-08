@@ -33,4 +33,18 @@ public class CoordinatesController : ControllerBase
         await _coordinateService.CreateAsync(request);
         return NoContent();
     }
+
+    [HttpPut("{coordinateId:int}")]
+    [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> UpdateById(
+        [FromBody] UpdateCoordinateRequest request,
+        [FromRoute] int coordinateId
+    )
+    {
+        await _coordinateService.UpdateByIdAsync(
+            coordinateId: coordinateId,
+            request: request
+        );
+        return NoContent();
+    }
 }
