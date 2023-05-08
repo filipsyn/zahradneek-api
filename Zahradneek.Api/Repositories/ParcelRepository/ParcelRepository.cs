@@ -45,7 +45,6 @@ public class ParcelRepository : IParcelRepository
         if (parcel is null)
             throw new NotFoundException("Parcel was not found");
 
-        //TODO: Finish Updating
         _mapper.Map(updatedParcel, parcel);
         _db.Parcels.Update(parcel);
         await _db.SaveChangesAsync();
