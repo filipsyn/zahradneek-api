@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Zahradneek.Api.Contracts.v1.Requests;
 using Zahradneek.Api.Contracts.v1.Responses;
 using Zahradneek.Api.Services.CoordinateService;
 
@@ -24,4 +25,12 @@ public class CoordinatesController : ControllerBase
     [HttpGet("{coordinateId:int}")]
     public async Task<IActionResult> GetById([FromRoute] int coordinateId) =>
         Ok(await _coordinateService.GetByIdAsync(coordinateId));
+
+    [HttpPost]
+    [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> Create([FromBody] CreateCoordinateRequest request)
+    {
+        await _coordinateService.CreateAsync(request);
+        return NoContent();
+    }
 }
