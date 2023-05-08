@@ -27,10 +27,11 @@ public class ParcelRepository : IParcelRepository
         return await _db.Parcels.Where(x => x.Id == parcelId).FirstOrDefaultAsync();
     }
 
-    public async Task<IEnumerable<Parcel>> GetAllByOwnerIdAsync(int ownerId)
-    {
-        return await _db.Parcels.Where(x => x.OwnerId == ownerId).ToListAsync();
-    }
+    public async Task<IEnumerable<Parcel>> GetAllByOwnerIdAsync(int ownerId) =>
+        await _db.Parcels
+            .Include(x => x.Coordinates)
+            .Where(x => x.OwnerId == ownerId)
+            .ToListAsync();
 
     public async Task CreateAsync(Parcel parcel)
     {
