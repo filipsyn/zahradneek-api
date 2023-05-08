@@ -20,4 +20,8 @@ public class CoordinatesController : ControllerBase
     [ProducesResponseType(type: typeof(IEnumerable<CoordinateInfoResponse>), statusCode: StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAll() =>
         Ok(await _coordinateService.GetAllAsync());
+
+    [HttpGet("{coordinateId:int}")]
+    public async Task<IActionResult> GetById([FromRoute] int coordinateId) =>
+        Ok(await _coordinateService.GetByIdAsync(coordinateId));
 }
