@@ -47,4 +47,11 @@ public class CoordinatesController : ControllerBase
         );
         return NoContent();
     }
+
+    [HttpDelete("{coordinateId:int}")]
+    public async Task<IActionResult> DeleteById([FromRoute] int coordinateId)
+    {
+        await _coordinateService.DeleteByIdAsync(coordinateId);
+        return NoContent();
+    }
 }
