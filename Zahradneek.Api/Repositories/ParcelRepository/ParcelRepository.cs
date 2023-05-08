@@ -17,10 +17,10 @@ public class ParcelRepository : IParcelRepository
         _mapper = mapper;
     }
 
-    public async Task<IEnumerable<Parcel>> GetAllAsync()
-    {
-        return await _db.Parcels.Include(x => x.Coordinates).ToListAsync();
-    }
+    public async Task<IEnumerable<Parcel>> GetAllAsync() =>
+        await _db.Parcels
+            .Include(x => x.Coordinates)
+            .ToListAsync();
 
     public async Task<Parcel?> GetByIdAsync(int parcelId)
     {
