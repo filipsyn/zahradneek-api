@@ -5,12 +5,14 @@ Back-end part of *Zahradneek* project, which helps with managing garden settleme
 ## Installation
 
 ### Prerequisites
+
 - .NET 7
 - Entity Framework CLI tool
-  - Can be installed with `dotnet tool install --global dotnet-ef` command
+    - Can be installed with `dotnet tool install --global dotnet-ef` command
 - Docker
 
 ### Running on UNIX-based systems
+
 ```shell
 # Step 1: Change into project folder
 cd Zahradneek.Api 
@@ -31,6 +33,7 @@ dotnet run
 ```
 
 ### Running on Windows (using PowerShell)
+
 ```powershell
 # Step 1: Change into project folder
 cd Zahradneek.Api 
@@ -51,6 +54,20 @@ dotnet run
 ```
 
 After you are done, you can shut down the Docker containers with
+
 ```shell
 docker-compose down
 ```
+
+## Project roadmap
+
+> **Legend:**
+>  - (❓) - Optional feature, might not be implemented
+
+- [x] User system
+    - [x] Authentication
+    - [ ] Role system
+    - [ ] Authorization
+- [ ] Event calendar
+- [ ] Water consumption log for parcels
+- [ ] (❓) Batch inserting and updating of parcels even with coordinates
