@@ -22,10 +22,10 @@ public class ParcelRepository : IParcelRepository
             .Include(x => x.Coordinates)
             .ToListAsync();
 
-    public async Task<Parcel?> GetByIdAsync(int parcelId)
-    {
-        return await _db.Parcels.Where(x => x.Id == parcelId).FirstOrDefaultAsync();
-    }
+    public async Task<Parcel?> GetByIdAsync(int parcelId) =>
+        await _db.Parcels
+            .Where(x => x.Id == parcelId)
+            .FirstOrDefaultAsync();
 
     public async Task<IEnumerable<Parcel>> GetAllByOwnerIdAsync(int ownerId) =>
         await _db.Parcels
