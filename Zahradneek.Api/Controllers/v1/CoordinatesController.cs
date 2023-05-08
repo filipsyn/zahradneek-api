@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Zahradneek.Api.Contracts.v1;
-using Zahradneek.Api.Repositories.CoordinateRepository;
+using Zahradneek.Api.Contracts.v1.Responses;
 using Zahradneek.Api.Services.CoordinateService;
 
 namespace Zahradneek.Api.Controllers.v1;

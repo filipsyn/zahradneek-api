@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using Zahradneek.Api.Contracts.v1;
+using Zahradneek.Api.Contracts.v1.Requests;
+using Zahradneek.Api.Contracts.v1.Responses;
 using Zahradneek.Api.Services.AuthService;
 
 namespace Zahradneek.Api.Controllers.v1;

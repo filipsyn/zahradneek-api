@@ -1,6 +1,4 @@
-using Zahradneek.Api.Models;
-
-namespace Zahradneek.Api.Contracts.v1;
+namespace Zahradneek.Api.Contracts.v1.Responses;
 
 public record ParcelInfoResponse
 {

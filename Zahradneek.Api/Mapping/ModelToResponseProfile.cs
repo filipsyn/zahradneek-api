@@ -1,5 +1,5 @@
 using AutoMapper;
-using Zahradneek.Api.Contracts.v1;
+using Zahradneek.Api.Contracts.v1.Responses;
 using Zahradneek.Api.Models;
 
 namespace Zahradneek.Api.Mapping;

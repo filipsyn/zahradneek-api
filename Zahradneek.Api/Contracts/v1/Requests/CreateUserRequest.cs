@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Zahradneek.Api.Contracts.v1;
+namespace Zahradneek.Api.Contracts.v1.Requests;
 
 public record CreateUserRequest
 {

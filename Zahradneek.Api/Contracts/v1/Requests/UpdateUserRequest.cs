@@ -1,4 +1,4 @@
-namespace Zahradneek.Api.Contracts.v1;
+namespace Zahradneek.Api.Contracts.v1.Requests;
 
 public record UpdateUserRequest
 {

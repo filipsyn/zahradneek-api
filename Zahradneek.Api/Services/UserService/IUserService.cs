@@ -1,4 +1,5 @@
-using Zahradneek.Api.Contracts.v1;
+using Zahradneek.Api.Contracts.v1.Requests;
+using Zahradneek.Api.Contracts.v1.Responses;
 
 namespace Zahradneek.Api.Services.UserService;
 
