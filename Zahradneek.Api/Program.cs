@@ -3,6 +3,16 @@ using Zahradneek.Api.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+});
+
 builder.RegisterServices();
 
 var app = builder.Build();
@@ -23,5 +33,7 @@ app.MapControllers();
 app.MapHealthChecks("/health");
 
 app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
+
+app.UseCors();
 
 app.Run();
