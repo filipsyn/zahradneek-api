@@ -15,5 +15,11 @@ public class UpdatingModelProfile : Profile
         CreateMap<Parcel, Parcel>();
 
         CreateMap<Coordinate, Coordinate>();
+
+        CreateMap<WaterLog, WaterLog>()
+            .ForMember(
+                dest => dest.CreatedAt,
+                opt => opt.Ignore()
+            );
     }
 }
