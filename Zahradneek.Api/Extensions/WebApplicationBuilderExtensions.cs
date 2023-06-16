@@ -10,6 +10,7 @@ using Zahradneek.Api.Data;
 using Zahradneek.Api.Repositories.CoordinateRepository;
 using Zahradneek.Api.Repositories.ParcelRepository;
 using Zahradneek.Api.Repositories.UserRepository;
+using Zahradneek.Api.Repositories.WaterLogRepository;
 using Zahradneek.Api.Services.AuthService;
 using Zahradneek.Api.Services.CoordinateService;
 using Zahradneek.Api.Services.ParcelService;
@@ -90,6 +91,7 @@ public static class WebApplicationBuilderExtensions
         builder.Services.AddScoped<IUserRepository, UserRepository>();
         builder.Services.AddScoped<IParcelRepository, ParcelRepository>();
         builder.Services.AddScoped<ICoordinateRepository, CoordinateRepository>();
+        builder.Services.AddScoped<IWaterLogRepository, WaterLogRepository>();
 
         // Services
         builder.Services.AddScoped<IUserService, UserService>();
