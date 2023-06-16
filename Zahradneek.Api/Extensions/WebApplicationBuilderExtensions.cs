@@ -98,6 +98,7 @@ public static class WebApplicationBuilderExtensions
         builder.Services.AddScoped<IAuthService, AuthService>();
         builder.Services.AddScoped<IParcelService, ParcelService>();
         builder.Services.AddScoped<ICoordinateService, CoordinateService>();
+        builder.Services.AddScoped<IWaterLogRepository, WaterLogRepository>();
 
         return builder;
     }
