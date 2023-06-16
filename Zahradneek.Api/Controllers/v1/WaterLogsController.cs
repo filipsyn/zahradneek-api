@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Zahradneek.Api.Contracts.v1.Requests;
 using Zahradneek.Api.Contracts.v1.Responses;
 using Zahradneek.Api.Services.WaterLogService;
 
@@ -25,4 +26,12 @@ public class WaterLogsController : ControllerBase
     [ProducesResponseType(statusCode: StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetById([FromRoute] int waterLogId)
         => Ok(await _waterLogService.GetByIdAsync(waterLogId));
+
+    [HttpPost]
+    [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> Create([FromBody] CreateWaterLogRequest request)
+    {
+        await _waterLogService.CreateAsync(request);
+        return NoContent();
+    }
 }
