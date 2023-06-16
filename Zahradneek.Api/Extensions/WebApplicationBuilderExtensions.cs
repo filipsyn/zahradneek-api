@@ -15,6 +15,7 @@ using Zahradneek.Api.Services.AuthService;
 using Zahradneek.Api.Services.CoordinateService;
 using Zahradneek.Api.Services.ParcelService;
 using Zahradneek.Api.Services.UserService;
+using Zahradneek.Api.Services.WaterLogService;
 
 namespace Zahradneek.Api.Extensions;
 
@@ -98,7 +99,7 @@ public static class WebApplicationBuilderExtensions
         builder.Services.AddScoped<IAuthService, AuthService>();
         builder.Services.AddScoped<IParcelService, ParcelService>();
         builder.Services.AddScoped<ICoordinateService, CoordinateService>();
-        builder.Services.AddScoped<IWaterLogRepository, WaterLogRepository>();
+        builder.Services.AddScoped<IWaterLogService, WaterLogService>();
 
         return builder;
     }
