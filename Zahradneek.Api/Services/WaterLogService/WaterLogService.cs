@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Zahradneek.Api.Contracts.v1.Requests;
