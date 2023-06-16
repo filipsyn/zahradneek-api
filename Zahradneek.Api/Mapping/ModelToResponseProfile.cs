@@ -11,5 +11,6 @@ public class ModelToResponseProfile : Profile
         CreateMap<User, UserInfoResponse>();
         CreateMap<Parcel, ParcelInfoResponse>();
         CreateMap<Coordinate, CoordinateInfoResponse>();
+        CreateMap<WaterLog, WaterLogInfoResponse>();
     }
 }

@@ -16,5 +16,8 @@ public class RequestToModelProfile : Profile
 
         CreateMap<CreateCoordinateRequest, Coordinate>();
         CreateMap<UpdateCoordinateRequest, Coordinate>();
+
+        CreateMap<CreateWaterLogRequest, WaterLog>();
+        CreateMap<UpdateCoordinateRequest, WaterLog>();
     }
 }
