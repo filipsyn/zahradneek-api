@@ -19,4 +19,10 @@ public class WaterLogsController : ControllerBase
     [HttpGet]
     [ProducesResponseType(statusCode: StatusCodes.Status200OK, type: typeof(IEnumerable<WaterLogInfoResponse>))]
     public async Task<IActionResult> GetAll() => Ok(await _waterLogService.GetAllAsync());
+
+    [HttpGet("{waterLogId:int}")]
+    [ProducesResponseType(type: typeof(WaterLogInfoResponse), statusCode: StatusCodes.Status200OK)]
+    [ProducesResponseType(statusCode: StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetById([FromRoute] int waterLogId)
+        => Ok(await _waterLogService.GetByIdAsync(waterLogId));
 }
