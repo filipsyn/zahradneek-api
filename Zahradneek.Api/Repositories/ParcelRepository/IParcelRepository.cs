@@ -8,6 +8,8 @@ public interface IParcelRepository
 
     public Task<Parcel?> GetByIdAsync(int parcelId);
 
+    public Task<bool> IsOwner(int userId, int parcelId);
+
     public Task<IEnumerable<Parcel>> GetAllByOwnerIdAsync(int ownerId);
 
     public Task CreateAsync(Parcel parcel);

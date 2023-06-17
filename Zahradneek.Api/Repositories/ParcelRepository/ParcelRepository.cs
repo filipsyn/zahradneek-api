@@ -28,6 +28,15 @@ public class ParcelRepository : IParcelRepository
             .Include(x => x.Coordinates)
             .FirstOrDefaultAsync();
 
+    public async Task<bool> IsOwner(int userId, int parcelId)
+    {
+        var parcel = await this.GetByIdAsync(parcelId);
+        if (parcel is null)
+            throw new NotFoundException("Parcel was not found");
+
+        return parcel.OwnerId == userId;
+    }
+
     public async Task<IEnumerable<Parcel>> GetAllByOwnerIdAsync(int ownerId) =>
         await _db.Parcels
             .Include(x => x.Coordinates)
