@@ -6,7 +6,7 @@ public interface INewsRepository
 {
     public Task<IEnumerable<News>> GetAllAsync();
 
-    public Task<News?> GetById(int newsId);
+    public Task<News?> GetByIdAsync(int newsId);
 
     public Task CreateAsync(News news);
 
