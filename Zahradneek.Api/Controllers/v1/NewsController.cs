@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Zahradneek.Api.Contracts.v1.Requests;
+using Zahradneek.Api.Contracts.v1.Responses;
 using Zahradneek.Api.Services.NewsService;
 
 namespace Zahradneek.Api.Controllers.v1;
@@ -17,14 +18,18 @@ public class NewsController : ControllerBase
     }
 
     [HttpGet]
+    [ProducesResponseType(type: typeof(IEnumerable<NewsInfoResponse>), statusCode: StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAll() =>
         Ok(await _newsService.GetAllAsync());
 
     [HttpGet("{articleId:int}")]
+    [ProducesResponseType(type: typeof(NewsInfoResponse), statusCode: StatusCodes.Status200OK)]
+    [ProducesResponseType(statusCode: StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetById([FromRoute] int articleId) =>
         Ok(await _newsService.GetByIdAsync(articleId));
 
     [HttpPost]
+    [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
     public async Task<IActionResult> Create([FromBody] CreateNewsRequest request)
     {
         await _newsService.CreateAsync(request);
@@ -32,6 +37,7 @@ public class NewsController : ControllerBase
     }
 
     [HttpPut("{articleId:int}")]
+    [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
     public async Task<IActionResult> UpdateById([FromBody] UpdateNewsRequest request, [FromRoute] int articleId)
     {
         await _newsService.UpdateByIdAsync(request: request, newsId: articleId);
@@ -39,6 +45,9 @@ public class NewsController : ControllerBase
     }
 
     [HttpDelete]
+    [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
+    [ProducesResponseType(statusCode: StatusCodes.Status404NotFound)]
+    [ProducesResponseType(statusCode: StatusCodes.Status409Conflict)]
     public async Task<IActionResult> DeleteById([FromRoute] int articleId)
     {
         await _newsService.DeleteByIdAsync(articleId);
