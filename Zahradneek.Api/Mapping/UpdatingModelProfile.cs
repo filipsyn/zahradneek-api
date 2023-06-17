@@ -25,5 +25,10 @@ public class UpdatingModelProfile : Profile
             .ForMember(dest => dest.Id, opt => opt.Ignore())
             .ForMember(dest => dest.CreatedAt, opt => opt.Ignore())
             .ForMember(dest => dest.ParcelId, opt => opt.Ignore());
+
+        CreateMap<News, News>()
+            .ForMember(dest => dest.Id, opt => opt.Ignore())
+            .ForMember(dest => dest.CreatedAt, opt => opt.Ignore())
+            .ForMember(dest => dest.AuthorId, opt => opt.Ignore());
     }
 }
