@@ -34,4 +34,18 @@ public class WaterLogsController : ControllerBase
         await _waterLogService.CreateAsync(request);
         return NoContent();
     }
+
+    [HttpPut("{waterLogId:int}")]
+    public async Task<IActionResult> UpdateById([FromBody] UpdateWaterLogRequest request, [FromRoute] int waterLogId)
+    {
+        await _waterLogService.UpdateByIdAsync(request: request, waterLogId: waterLogId);
+        return NoContent();
+    }
+
+    [HttpDelete("{waterLogId:int}")]
+    public async Task<IActionResult> DeleteById([FromRoute] int waterLogId)
+    {
+        await _waterLogService.DeleteByIdAsync(waterLogId);
+        return NoContent();
+    }
 }
