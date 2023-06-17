@@ -16,6 +16,8 @@ public class AuthController : ControllerBase
         _authService = authService;
     }
 
+    /// <remarks>This endpoint is deprecated. Use <c>POST /v1/users</c> endpoint instead</remarks>
+    [Obsolete]
     [HttpPost("register")]
     [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
     [ProducesResponseType(statusCode: StatusCodes.Status409Conflict)]
