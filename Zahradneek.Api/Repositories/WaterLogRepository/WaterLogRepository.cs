@@ -42,6 +42,7 @@ public class WaterLogRepository : IWaterLogRepository
             throw new NotFoundException("Water Log was not found");
 
         _mapper.Map(updatedWaterLog, waterLog);
+        waterLog.ParcelId = updatedWaterLog.ParcelId;
 
         _db.WaterLogs.Update(waterLog);
         await _db.SaveChangesAsync();

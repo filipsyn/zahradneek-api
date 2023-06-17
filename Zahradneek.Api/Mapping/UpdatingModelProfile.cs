@@ -22,9 +22,8 @@ public class UpdatingModelProfile : Profile
         CreateMap<Coordinate, Coordinate>();
 
         CreateMap<WaterLog, WaterLog>()
-            .ForMember(
-                dest => dest.CreatedAt,
-                opt => opt.Ignore()
-            );
+            .ForMember(dest => dest.Id, opt => opt.Ignore())
+            .ForMember(dest => dest.CreatedAt, opt => opt.Ignore())
+            .ForMember(dest => dest.ParcelId, opt => opt.Ignore());
     }
 }
