@@ -12,7 +12,12 @@ public class UpdatingModelProfile : Profile
             .ForMember(dest => dest.PasswordHash, opt => opt.Ignore())
             .ForMember(dest => dest.CreatedAt, opt => opt.Ignore());
 
-        CreateMap<Parcel, Parcel>();
+        CreateMap<Parcel, Parcel>()
+            .ForMember(dest => dest.Id, opt => opt.Ignore())
+            .ForMember(dest => dest.OwnerId, opt => opt.Ignore())
+            .ForMember(dest => dest.WaterLogs, opt => opt.Ignore())
+            .ForMember(dest => dest.Coordinates, opt => opt.Ignore())
+            .ForMember(dest => dest.CreatedAt, opt => opt.Ignore());
 
         CreateMap<Coordinate, Coordinate>();
 

@@ -47,6 +47,8 @@ public class ParcelRepository : IParcelRepository
             throw new NotFoundException("Parcel was not found");
 
         _mapper.Map(updatedParcel, parcel);
+        parcel.OwnerId = updatedParcel.OwnerId;
+
         _db.Parcels.Update(parcel);
         await _db.SaveChangesAsync();
     }
