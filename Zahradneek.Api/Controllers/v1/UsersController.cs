@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Zahradneek.Api.Contracts.v1.Requests;
 using Zahradneek.Api.Contracts.v1.Responses;
@@ -8,6 +9,7 @@ namespace Zahradneek.Api.Controllers.v1;
 
 [ApiController]
 [Route("v1/users")]
+[Authorize]
 public class UsersController : ControllerBase
 {
     private readonly IUserService _userService;
