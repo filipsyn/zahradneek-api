@@ -38,6 +38,10 @@ public class UserService : IUserService
 
     public async Task CreateAsync(CreateUserRequest request)
     {
+        var existingUser = await _userRepository.GetByUsernameAsync(request.Username);
+        if (existingUser is not null)
+            throw new ConflictException($"Username '{request.Username}' is taken");
+        
         var user = _mapper.Map<User>(request);
         user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.Password);
 
