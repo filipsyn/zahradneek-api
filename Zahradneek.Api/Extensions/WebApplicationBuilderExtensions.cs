@@ -8,6 +8,7 @@ using Newtonsoft.Json.Serialization;
 using Swashbuckle.AspNetCore.Filters;
 using Zahradneek.Api.Data;
 using Zahradneek.Api.Repositories.CoordinateRepository;
+using Zahradneek.Api.Repositories.NewsRepository;
 using Zahradneek.Api.Repositories.ParcelRepository;
 using Zahradneek.Api.Repositories.UserRepository;
 using Zahradneek.Api.Repositories.WaterLogRepository;
@@ -93,6 +94,7 @@ public static class WebApplicationBuilderExtensions
         builder.Services.AddScoped<IParcelRepository, ParcelRepository>();
         builder.Services.AddScoped<ICoordinateRepository, CoordinateRepository>();
         builder.Services.AddScoped<IWaterLogRepository, WaterLogRepository>();
+        builder.Services.AddScoped<INewsRepository, NewsRepository>();
 
         // Services
         builder.Services.AddScoped<IUserService, UserService>();
