@@ -1,11 +1,14 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using MySql.Data.MySqlClient;
 using Newtonsoft.Json.Serialization;
 using Swashbuckle.AspNetCore.Filters;
+using Zahradneek.Api.Authorization.Handlers;
+using Zahradneek.Api.Authorization.Requirements;
 using Zahradneek.Api.Data;
 using Zahradneek.Api.Repositories.CoordinateRepository;
 using Zahradneek.Api.Repositories.NewsRepository;
@@ -90,6 +93,16 @@ public static class WebApplicationBuilderExtensions
             });
         builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
+        builder.Services.AddAuthorization(options =>
+        {
+            options.AddPolicy("AdminOrParcelOwner", policy =>
+            {
+                policy.RequireAuthenticatedUser();
+                policy.RequireRole("Admin");
+                policy.Requirements.Add(new ParcelOwnerRequirement());
+            });
+        });
+
         // Repositories
         builder.Services.AddScoped<IUserRepository, UserRepository>();
         builder.Services.AddScoped<IParcelRepository, ParcelRepository>();
@@ -104,6 +117,11 @@ public static class WebApplicationBuilderExtensions
         builder.Services.AddScoped<ICoordinateService, CoordinateService>();
         builder.Services.AddScoped<IWaterLogService, WaterLogService>();
         builder.Services.AddScoped<INewsService, NewsService>();
+        
+        // Policy handlers
+        builder.Services.AddHttpContextAccessor();
+        builder.Services.AddScoped<IAuthorizationHandler, ParcelOwnerAuthorizationHandler>();
+
 
         return builder;
     }
