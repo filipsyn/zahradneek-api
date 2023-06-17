@@ -10,7 +10,7 @@ public interface INewsRepository
 
     public Task CreateAsync(News news);
 
-    public Task UpdateByIdAsync(News news, int newsId);
+    public Task UpdateByIdAsync(News updatedNews, int newsId);
 
     public Task DeleteByIdAsync(int newsId);
 }
