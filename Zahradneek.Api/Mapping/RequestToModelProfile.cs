@@ -19,5 +19,8 @@ public class RequestToModelProfile : Profile
 
         CreateMap<CreateWaterLogRequest, WaterLog>();
         CreateMap<UpdateWaterLogRequest, WaterLog>();
+
+        CreateMap<CreateNewsRequest, News>();
+        CreateMap<UpdateNewsRequest, News>();
     }
 }
