@@ -42,7 +42,7 @@ public class AuthService : IAuthService
         if (!await VerifyPasswordAsync(request))
             throw new IncorrectCredentialsException();
 
-        return new LoginResponse(GenerateJwtToken(user)); 
+        return new LoginResponse(GenerateJwtToken(user));
     }
 
     private async Task<bool> VerifyPasswordAsync(LoginRequest request)
@@ -59,7 +59,8 @@ public class AuthService : IAuthService
         var claims = new List<Claim>
         {
             new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-            new Claim(ClaimTypes.Name, user.Username)
+            new Claim(ClaimTypes.Name, user.Username),
+            new Claim(ClaimTypes.Role, user.Role)
         };
 
         var key = new SymmetricSecurityKey(
