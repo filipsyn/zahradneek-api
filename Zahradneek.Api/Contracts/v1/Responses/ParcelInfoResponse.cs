@@ -6,4 +6,5 @@ public record ParcelInfoResponse
     public string? Name { get; init; }
     public int OwnerId { get; init; }
     public List<CoordinateInfoResponse> Coordinates { get; init; }
+    public List<WaterLogInfoResponse> WaterLogs { get; init; }
 };
