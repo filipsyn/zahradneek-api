@@ -7,6 +7,7 @@ using Microsoft.OpenApi.Models;
 using MySql.Data.MySqlClient;
 using Newtonsoft.Json.Serialization;
 using Swashbuckle.AspNetCore.Filters;
+using Zahradneek.Api.Authorization;
 using Zahradneek.Api.Authorization.Handlers;
 using Zahradneek.Api.Authorization.Requirements;
 using Zahradneek.Api.Data;
@@ -95,7 +96,7 @@ public static class WebApplicationBuilderExtensions
 
         builder.Services.AddAuthorization(options =>
         {
-            options.AddPolicy("AdminOrParcelOwner", policy =>
+            options.AddPolicy(AuthorizationPolicies.AdminOrParcelOwner, policy =>
             {
                 policy.RequireAuthenticatedUser();
                 policy.Requirements.Add(new AdminOrOwnerRequirement());

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Zahradneek.Api.Authorization;
 using Zahradneek.Api.Contracts.v1.Requests;
 using Zahradneek.Api.Contracts.v1.Responses;
 using Zahradneek.Api.Services.CoordinateService;
@@ -35,21 +36,21 @@ public class ParcelsController : ControllerBase
         Ok(await _parcelService.GetAllAsync());
 
     [HttpGet("{parcelId:int}")]
-    [Authorize(Policy = "AdminOrParcelOwner")]
+    [Authorize(Policy = AuthorizationPolicies.AdminOrParcelOwner)]
     [ProducesResponseType(type: typeof(ParcelInfoResponse), statusCode: StatusCodes.Status200OK)]
     [ProducesResponseType(statusCode: StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetById([FromRoute] int parcelId) =>
         Ok(await _parcelService.GetByIdAsync(parcelId));
 
     [HttpGet("{parcelId:int}/coordinates")]
-    [Authorize(Policy = "AdminOrParcelOwner")]
+    [Authorize(Policy = AuthorizationPolicies.AdminOrParcelOwner)]
     [ProducesResponseType(type: typeof(IEnumerable<CoordinateInfoResponse>), statusCode: StatusCodes.Status200OK)]
     [ProducesResponseType(statusCode: StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetCoordinatesForParcel([FromRoute] int parcelId) =>
         Ok(await _coordinateService.GetAllForParcel(parcelId));
 
     [HttpGet("{parcelId:int}/water-logs")]
-    [Authorize(Policy = "AdminOrParcelOwner")]
+    [Authorize(Policy = AuthorizationPolicies.AdminOrParcelOwner)]
     [ProducesResponseType(typeof(IEnumerable<WaterLogInfoResponse>), statusCode: StatusCodes.Status200OK)]
     public async Task<IActionResult> GetWaterLogsForParcel([FromRoute] int parcelId) =>
         Ok(await _waterLogService.GetAllByParcelId(parcelId));
