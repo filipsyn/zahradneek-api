@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Zahradneek.Api.Authorization;
 using Zahradneek.Api.Contracts.v1.Requests;
 using Zahradneek.Api.Contracts.v1.Responses;
 using Zahradneek.Api.Services.NewsService;
@@ -29,6 +31,7 @@ public class NewsController : ControllerBase
         Ok(await _newsService.GetByIdAsync(articleId));
 
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
     public async Task<IActionResult> Create([FromBody] CreateNewsRequest request)
     {
@@ -37,6 +40,7 @@ public class NewsController : ControllerBase
     }
 
     [HttpPut("{articleId:int}")]
+    [Authorize(Roles = AuthorizationPolicies.AuthorOrAdmin)]
     [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
     public async Task<IActionResult> UpdateById([FromBody] UpdateNewsRequest request, [FromRoute] int articleId)
     {
@@ -45,6 +49,7 @@ public class NewsController : ControllerBase
     }
 
     [HttpDelete]
+    [Authorize(Roles = AuthorizationPolicies.AuthorOrAdmin)]
     [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
     [ProducesResponseType(statusCode: StatusCodes.Status404NotFound)]
     [ProducesResponseType(statusCode: StatusCodes.Status409Conflict)]
