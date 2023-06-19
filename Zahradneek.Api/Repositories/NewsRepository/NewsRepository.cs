@@ -18,7 +18,9 @@ public class NewsRepository : INewsRepository
     }
 
     public async Task<IEnumerable<News>> GetAllAsync()
-        => await _db.News.ToListAsync();
+        => await _db.News
+            .OrderByDescending(x => x.CreatedAt)
+            .ToListAsync();
 
     public async Task<News?> GetByIdAsync(int newsId) =>
         await _db.News
