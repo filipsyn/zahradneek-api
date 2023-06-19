@@ -4,6 +4,7 @@ using Zahradneek.Api.Contracts.v1.Requests;
 using Zahradneek.Api.Contracts.v1.Responses;
 using Zahradneek.Api.Services.CoordinateService;
 using Zahradneek.Api.Services.ParcelService;
+using Zahradneek.Api.Services.WaterLogService;
 
 namespace Zahradneek.Api.Controllers.v1;
 
@@ -14,11 +15,17 @@ public class ParcelsController : ControllerBase
 {
     private readonly IParcelService _parcelService;
     private readonly ICoordinateService _coordinateService;
+    private readonly IWaterLogService _waterLogService;
 
-    public ParcelsController(IParcelService parcelService, ICoordinateService coordinateService)
+    public ParcelsController(
+        IParcelService parcelService,
+        ICoordinateService coordinateService,
+        IWaterLogService waterLogService
+    )
     {
         _parcelService = parcelService;
         _coordinateService = coordinateService;
+        _waterLogService = waterLogService;
     }
 
     [HttpGet]
@@ -38,6 +45,11 @@ public class ParcelsController : ControllerBase
     [ProducesResponseType(statusCode: StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetCoordinatesForParcel([FromRoute] int parcelId) =>
         Ok(await _coordinateService.GetAllForParcel(parcelId));
+
+    [HttpGet("{parcelId:int}/water-logs")]
+    [ProducesResponseType(typeof(IEnumerable<WaterLogInfoResponse>), statusCode: StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetWaterLogsForParcel([FromRoute] int parcelId) =>
+        Ok(await _waterLogService.GetAllByParcelId(parcelId));
 
     [HttpPost]
     [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
