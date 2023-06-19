@@ -4,4 +4,5 @@ public static class AuthorizationPolicies
 {
     public const string ParcelOwnerOrAdmin = "ParcelOwnerOrAdmin";
     public const string SelfOrAdmin = "SelfOrAdmin";
+    public const string AuthorOrAdmin = "AuthorOrAdmin";
 }
