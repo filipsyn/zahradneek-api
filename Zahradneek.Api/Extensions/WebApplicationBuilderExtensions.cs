@@ -98,9 +98,10 @@ public static class WebApplicationBuilderExtensions
             options.AddPolicy("AdminOrParcelOwner", policy =>
             {
                 policy.RequireAuthenticatedUser();
-                policy.RequireRole("Admin");
-                policy.Requirements.Add(new ParcelOwnerRequirement());
+                policy.Requirements.Add(new AdminOrOwnerRequirement());
             });
+
+            //TODO: Add policies
         });
 
         // Repositories
@@ -117,10 +118,11 @@ public static class WebApplicationBuilderExtensions
         builder.Services.AddScoped<ICoordinateService, CoordinateService>();
         builder.Services.AddScoped<IWaterLogService, WaterLogService>();
         builder.Services.AddScoped<INewsService, NewsService>();
-        
+
         // Policy handlers
         builder.Services.AddHttpContextAccessor();
-        builder.Services.AddScoped<IAuthorizationHandler, ParcelOwnerAuthorizationHandler>();
+        builder.Services.AddScoped<IAuthorizationHandler, AdminOrOwnerAuthorizationHandler>();
+        //TODO: Register policy handlers
 
 
         return builder;

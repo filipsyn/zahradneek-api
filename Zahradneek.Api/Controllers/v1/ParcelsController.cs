@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Zahradneek.Api.Contracts.v1.Requests;
 using Zahradneek.Api.Contracts.v1.Responses;
@@ -28,28 +29,33 @@ public class ParcelsController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize(Roles = "Admin")]
     [ProducesResponseType(type: typeof(IEnumerable<ParcelInfoResponse>), statusCode: StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAll() =>
         Ok(await _parcelService.GetAllAsync());
 
     [HttpGet("{parcelId:int}")]
+    [Authorize(Policy = "AdminOrParcelOwner")]
     [ProducesResponseType(type: typeof(ParcelInfoResponse), statusCode: StatusCodes.Status200OK)]
     [ProducesResponseType(statusCode: StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetById([FromRoute] int parcelId) =>
         Ok(await _parcelService.GetByIdAsync(parcelId));
 
     [HttpGet("{parcelId:int}/coordinates")]
+    [Authorize(Policy = "AdminOrParcelOwner")]
     [ProducesResponseType(type: typeof(IEnumerable<CoordinateInfoResponse>), statusCode: StatusCodes.Status200OK)]
     [ProducesResponseType(statusCode: StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetCoordinatesForParcel([FromRoute] int parcelId) =>
         Ok(await _coordinateService.GetAllForParcel(parcelId));
 
     [HttpGet("{parcelId:int}/water-logs")]
+    [Authorize(Policy = "AdminOrParcelOwner")]
     [ProducesResponseType(typeof(IEnumerable<WaterLogInfoResponse>), statusCode: StatusCodes.Status200OK)]
     public async Task<IActionResult> GetWaterLogsForParcel([FromRoute] int parcelId) =>
         Ok(await _waterLogService.GetAllByParcelId(parcelId));
 
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
     public async Task<IActionResult> Create([FromBody] CreateParcelRequest request)
     {
@@ -58,6 +64,7 @@ public class ParcelsController : ControllerBase
     }
 
     [HttpPut("{parcelId:int}")]
+    [Authorize(Roles = "Admin")]
     [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
     public async Task<IActionResult> UpdateById([FromBody] UpdateParcelRequest request, [FromRoute] int parcelId)
     {
@@ -66,6 +73,7 @@ public class ParcelsController : ControllerBase
     }
 
     [HttpDelete("{parcelId:int}")]
+    [Authorize(Roles = "Admin")]
     [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
     [ProducesResponseType(statusCode: StatusCodes.Status404NotFound)]
     [ProducesResponseType(statusCode: StatusCodes.Status409Conflict)]
