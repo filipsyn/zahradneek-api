@@ -5,12 +5,12 @@ using Zahradneek.Api.Repositories.ParcelRepository;
 
 namespace Zahradneek.Api.Authorization.Handlers;
 
-public class AdminOrOwnerAuthorizationHandler : AuthorizationHandler<AdminOrOwnerRequirement>
+public class ParcelOwnerOrAdminAuthorizationHandler : AuthorizationHandler<ParcelOwnerOrAdminRequirement>
 {
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly IParcelRepository _parcelRepository;
 
-    public AdminOrOwnerAuthorizationHandler(IHttpContextAccessor httpContextAccessor,
+    public ParcelOwnerOrAdminAuthorizationHandler(IHttpContextAccessor httpContextAccessor,
         IParcelRepository parcelRepository)
     {
         _httpContextAccessor = httpContextAccessor;
@@ -18,7 +18,7 @@ public class AdminOrOwnerAuthorizationHandler : AuthorizationHandler<AdminOrOwne
     }
 
     protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context,
-        AdminOrOwnerRequirement requirement)
+        ParcelOwnerOrAdminRequirement requirement)
     {
         var httpContext = _httpContextAccessor.HttpContext;
         var parcelId = int.Parse((string)httpContext?.Request.RouteValues["parcelId"] ?? "0");

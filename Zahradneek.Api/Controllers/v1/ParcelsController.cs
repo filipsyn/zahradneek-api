@@ -36,21 +36,21 @@ public class ParcelsController : ControllerBase
         Ok(await _parcelService.GetAllAsync());
 
     [HttpGet("{parcelId:int}")]
-    [Authorize(Policy = AuthorizationPolicies.AdminOrParcelOwner)]
+    [Authorize(Policy = AuthorizationPolicies.ParcelOwnerOrAdmin)]
     [ProducesResponseType(type: typeof(ParcelInfoResponse), statusCode: StatusCodes.Status200OK)]
     [ProducesResponseType(statusCode: StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetById([FromRoute] int parcelId) =>
         Ok(await _parcelService.GetByIdAsync(parcelId));
 
     [HttpGet("{parcelId:int}/coordinates")]
-    [Authorize(Policy = AuthorizationPolicies.AdminOrParcelOwner)]
+    [Authorize(Policy = AuthorizationPolicies.ParcelOwnerOrAdmin)]
     [ProducesResponseType(type: typeof(IEnumerable<CoordinateInfoResponse>), statusCode: StatusCodes.Status200OK)]
     [ProducesResponseType(statusCode: StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetCoordinatesForParcel([FromRoute] int parcelId) =>
         Ok(await _coordinateService.GetAllForParcel(parcelId));
 
     [HttpGet("{parcelId:int}/water-logs")]
-    [Authorize(Policy = AuthorizationPolicies.AdminOrParcelOwner)]
+    [Authorize(Policy = AuthorizationPolicies.ParcelOwnerOrAdmin)]
     [ProducesResponseType(typeof(IEnumerable<WaterLogInfoResponse>), statusCode: StatusCodes.Status200OK)]
     public async Task<IActionResult> GetWaterLogsForParcel([FromRoute] int parcelId) =>
         Ok(await _waterLogService.GetAllByParcelId(parcelId));

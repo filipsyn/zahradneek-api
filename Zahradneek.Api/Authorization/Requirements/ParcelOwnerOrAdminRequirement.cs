@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Zahradneek.Api.Authorization.Requirements;
 
-public class AdminOrOwnerRequirement: IAuthorizationRequirement
+public class ParcelOwnerOrAdminRequirement: IAuthorizationRequirement
 {
     
 }
