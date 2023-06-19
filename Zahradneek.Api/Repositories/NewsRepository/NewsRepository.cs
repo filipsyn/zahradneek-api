@@ -1,3 +1,4 @@
+using System.Xml;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Zahradneek.Api.Data;
@@ -26,6 +27,15 @@ public class NewsRepository : INewsRepository
         await _db.News
             .Where(n => n.Id == newsId)
             .FirstOrDefaultAsync();
+
+    public async Task<bool> IsAuthor(int userId, int articleId)
+    {
+        var article = await GetByIdAsync(articleId);
+        if (article is null)
+            throw new NotFoundException("News article was not found");
+
+        return article.AuthorId == userId;
+    }
 
     public async Task CreateAsync(News news)
     {
