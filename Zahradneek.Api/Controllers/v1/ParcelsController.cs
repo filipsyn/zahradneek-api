@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Zahradneek.Api.Contracts.v1.Requests;
 using Zahradneek.Api.Contracts.v1.Responses;
@@ -34,7 +33,6 @@ public class ParcelsController : ControllerBase
         Ok(await _parcelService.GetAllAsync());
 
     [HttpGet("{parcelId:int}")]
-    [Authorize(Policy = "AdminOrParcelOwner")]
     [ProducesResponseType(type: typeof(ParcelInfoResponse), statusCode: StatusCodes.Status200OK)]
     [ProducesResponseType(statusCode: StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetById([FromRoute] int parcelId) =>
