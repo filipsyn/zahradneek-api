@@ -16,5 +16,5 @@ public record CreateUserRequest
 
     [Required] [Phone] public string PhoneNumber { get; init; } = string.Empty;
 
-    [Required] public DateTime DateOfBirth { get; init; }
+    public DateTime? DateOfBirth { get; init; }
 }
