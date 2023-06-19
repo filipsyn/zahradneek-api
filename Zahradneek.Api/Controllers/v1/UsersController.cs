@@ -9,7 +9,6 @@ namespace Zahradneek.Api.Controllers.v1;
 
 [ApiController]
 [Route("v1/users")]
-[Authorize]
 public class UsersController : ControllerBase
 {
     private readonly IUserService _userService;
