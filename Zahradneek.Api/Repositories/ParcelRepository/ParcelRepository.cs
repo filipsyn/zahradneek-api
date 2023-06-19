@@ -19,12 +19,14 @@ public class ParcelRepository : IParcelRepository
 
     public async Task<IEnumerable<Parcel>> GetAllAsync() =>
         await _db.Parcels
+            .Include(x => x.WaterLogs)
             .Include(x => x.Coordinates)
             .ToListAsync();
 
     public async Task<Parcel?> GetByIdAsync(int parcelId) =>
         await _db.Parcels
             .Where(x => x.Id == parcelId)
+            .Include(x => x.WaterLogs)
             .Include(x => x.Coordinates)
             .FirstOrDefaultAsync();
 
@@ -39,6 +41,7 @@ public class ParcelRepository : IParcelRepository
 
     public async Task<IEnumerable<Parcel>> GetAllByOwnerIdAsync(int ownerId) =>
         await _db.Parcels
+            .Include(x => x.WaterLogs)
             .Include(x => x.Coordinates)
             .Where(x => x.OwnerId == ownerId)
             .ToListAsync();
