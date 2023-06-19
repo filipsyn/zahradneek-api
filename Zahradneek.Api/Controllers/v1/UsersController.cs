@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Zahradneek.Api.Authorization;
 using Zahradneek.Api.Contracts.v1.Requests;
 using Zahradneek.Api.Contracts.v1.Responses;
 using Zahradneek.Api.Services.ParcelService;
@@ -9,7 +10,6 @@ namespace Zahradneek.Api.Controllers.v1;
 
 [ApiController]
 [Route("v1/users")]
-[Authorize]
 public class UsersController : ControllerBase
 {
     private readonly IUserService _userService;
@@ -22,20 +22,24 @@ public class UsersController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize(Roles = "Admin")]
     [ProducesResponseType(type: typeof(IEnumerable<UserInfoResponse>), statusCode: StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAll() => Ok(await _userService.GetAllAsync());
 
     [HttpGet("{userId}")]
+    [Authorize(Policy = AuthorizationPolicies.SelfOrAdmin)]
     [ProducesResponseType(type: typeof(UserInfoResponse), statusCode: StatusCodes.Status200OK)]
     [ProducesResponseType(statusCode: StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetById([FromRoute] int userId) => Ok(await _userService.GetByIdAsync(userId));
 
     [HttpGet("{userId:int}/parcels")]
+    [Authorize(Policy = AuthorizationPolicies.SelfOrAdmin)]
     [ProducesResponseType(type: typeof(IEnumerable<ParcelInfoResponse>), statusCode: StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllParcels(int userId) =>
         Ok(await _parcelService.GetAllByOwnerIdAsync(ownerId: userId));
 
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
     public async Task<IActionResult> Create([FromBody] CreateUserRequest request)
     {
@@ -44,6 +48,7 @@ public class UsersController : ControllerBase
     }
 
     [HttpPut("{userId}")]
+    [Authorize(Policy = AuthorizationPolicies.SelfOrAdmin)]
     [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
     public async Task<IActionResult> UpdateById([FromBody] UpdateUserRequest request, [FromRoute] int userId)
     {
@@ -52,6 +57,7 @@ public class UsersController : ControllerBase
     }
 
     [HttpDelete("{userId}")]
+    [Authorize(Roles = "Admin")]
     [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
     [ProducesResponseType(statusCode: StatusCodes.Status404NotFound)]
     [ProducesResponseType(statusCode: StatusCodes.Status409Conflict)]

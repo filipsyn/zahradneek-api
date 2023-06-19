@@ -102,6 +102,12 @@ public static class WebApplicationBuilderExtensions
                 policy.Requirements.Add(new ParcelOwnerOrAdminRequirement());
             });
 
+            options.AddPolicy(AuthorizationPolicies.SelfOrAdmin, policy =>
+            {
+                policy.RequireAuthenticatedUser();
+                policy.Requirements.Add(new SelfOrAdminRequirement());
+            });
+
             //TODO: Add policies
         });
 
@@ -123,6 +129,7 @@ public static class WebApplicationBuilderExtensions
         // Policy handlers
         builder.Services.AddHttpContextAccessor();
         builder.Services.AddScoped<IAuthorizationHandler, ParcelOwnerOrAdminAuthorizationHandler>();
+        builder.Services.AddScoped<IAuthorizationHandler, SelfOrAdminAuthorizationHandler>();
         //TODO: Register policy handlers
 
 
