@@ -108,7 +108,11 @@ public static class WebApplicationBuilderExtensions
                 policy.Requirements.Add(new SelfOrAdminRequirement());
             });
 
-            //TODO: Add policies
+            options.AddPolicy(AuthorizationPolicies.AuthorOrAdmin, policy =>
+            {
+                policy.RequireAuthenticatedUser();
+                policy.Requirements.Add(new AuthorOrAdminRequirement());
+            });
         });
 
         // Repositories
@@ -130,8 +134,7 @@ public static class WebApplicationBuilderExtensions
         builder.Services.AddHttpContextAccessor();
         builder.Services.AddScoped<IAuthorizationHandler, ParcelOwnerOrAdminAuthorizationHandler>();
         builder.Services.AddScoped<IAuthorizationHandler, SelfOrAdminAuthorizationHandler>();
-        //TODO: Register policy handlers
-
+        builder.Services.AddScoped<IAuthorizationHandler, AuthorOrAdminAuthorizationHandler>();
 
         return builder;
     }
