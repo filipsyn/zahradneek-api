@@ -19,6 +19,7 @@ public class ParcelRepository : IParcelRepository
 
     public async Task<IEnumerable<Parcel>> GetAllAsync() =>
         await _db.Parcels
+            .Include(x => x.Owner)
             .Include(x => x.WaterLogs)
             .Include(x => x.Coordinates)
             .ToListAsync();
@@ -26,6 +27,7 @@ public class ParcelRepository : IParcelRepository
     public async Task<Parcel?> GetByIdAsync(int parcelId) =>
         await _db.Parcels
             .Where(x => x.Id == parcelId)
+            .Include(x => x.Owner)
             .Include(x => x.WaterLogs)
             .Include(x => x.Coordinates)
             .FirstOrDefaultAsync();
