@@ -9,6 +9,7 @@ public class ModelToResponseProfile : Profile
     public ModelToResponseProfile()
     {
         CreateMap<User, UserInfoResponse>();
+        CreateMap<User, UserBriefInfoResponse>();
         CreateMap<Parcel, ParcelInfoResponse>();
         CreateMap<Coordinate, CoordinateInfoResponse>();
         CreateMap<WaterLog, WaterLogInfoResponse>();
