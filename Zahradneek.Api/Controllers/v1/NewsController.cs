@@ -48,7 +48,7 @@ public class NewsController : ControllerBase
         return NoContent();
     }
 
-    [HttpDelete]
+    [HttpDelete("{articleId:int}")]
     [Authorize(Roles = AuthorizationPolicies.AuthorOrAdmin)]
     [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
     [ProducesResponseType(statusCode: StatusCodes.Status404NotFound)]
