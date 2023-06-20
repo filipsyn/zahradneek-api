@@ -54,7 +54,7 @@ public class ParcelsController : ControllerBase
 
     [HttpPost]
     [Authorize(Roles = "Admin")]
-    [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
+    [ProducesResponseType(type: typeof(CreateParcelResponse), statusCode: StatusCodes.Status201Created)]
     public async Task<IActionResult> Create([FromBody] CreateParcelRequest request)
     {
         //TODO: URI
