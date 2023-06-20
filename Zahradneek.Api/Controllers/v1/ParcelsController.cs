@@ -53,7 +53,7 @@ public class ParcelsController : ControllerBase
         Ok(await _waterLogService.GetAllByParcelId(parcelId));
 
     [HttpPost]
-    [Authorize(Roles = "Admin")]
+    // [Authorize(Roles = "Admin")]
     [ProducesResponseType(type: typeof(CreateParcelResponse), statusCode: StatusCodes.Status201Created)]
     public async Task<IActionResult> Create([FromBody] CreateParcelRequest request)
     {
