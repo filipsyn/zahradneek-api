@@ -20,11 +20,13 @@ public class NewsRepository : INewsRepository
 
     public async Task<IEnumerable<News>> GetAllAsync()
         => await _db.News
+            .Include(x => x.Author)
             .OrderByDescending(x => x.CreatedAt)
             .ToListAsync();
 
     public async Task<News?> GetByIdAsync(int newsId) =>
         await _db.News
+            .Include(x => x.Author)
             .Where(n => n.Id == newsId)
             .FirstOrDefaultAsync();
 
