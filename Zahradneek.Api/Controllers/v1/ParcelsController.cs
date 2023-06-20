@@ -30,20 +30,17 @@ public class ParcelsController : ControllerBase
     }
 
     [HttpGet]
-    [Authorize(Roles = "Admin")]
     [ProducesResponseType(type: typeof(IEnumerable<ParcelInfoResponse>), statusCode: StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAll() =>
         Ok(await _parcelService.GetAllAsync());
 
     [HttpGet("{parcelId:int}")]
-    [Authorize(Policy = AuthorizationPolicies.ParcelOwnerOrAdmin)]
     [ProducesResponseType(type: typeof(ParcelInfoResponse), statusCode: StatusCodes.Status200OK)]
     [ProducesResponseType(statusCode: StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetById([FromRoute] int parcelId) =>
         Ok(await _parcelService.GetByIdAsync(parcelId));
 
     [HttpGet("{parcelId:int}/coordinates")]
-    [Authorize(Policy = AuthorizationPolicies.ParcelOwnerOrAdmin)]
     [ProducesResponseType(type: typeof(IEnumerable<CoordinateInfoResponse>), statusCode: StatusCodes.Status200OK)]
     [ProducesResponseType(statusCode: StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetCoordinatesForParcel([FromRoute] int parcelId) =>
