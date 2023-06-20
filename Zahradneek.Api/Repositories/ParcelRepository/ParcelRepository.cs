@@ -43,6 +43,7 @@ public class ParcelRepository : IParcelRepository
 
     public async Task<IEnumerable<Parcel>> GetAllByOwnerIdAsync(int ownerId) =>
         await _db.Parcels
+            .Include(x => x.Owner)
             .Include(x => x.WaterLogs)
             .Include(x => x.Coordinates)
             .Where(x => x.OwnerId == ownerId)
