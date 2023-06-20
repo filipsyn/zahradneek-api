@@ -12,7 +12,7 @@ public interface IParcelRepository
 
     public Task<IEnumerable<Parcel>> GetAllByOwnerIdAsync(int ownerId);
 
-    public Task CreateAsync(Parcel parcel);
+    public Task<int> CreateAsync(Parcel parcel);
 
     public Task UpdateByIdAsync(Parcel updatedParcel, int parcelId);
 

@@ -42,13 +42,14 @@ public class ParcelService : IParcelService
         return _mapper.Map<IEnumerable<ParcelInfoResponse>>(parcels);
     }
 
-    public async Task CreateAsync(CreateParcelRequest request)
+    public async Task<CreateParcelResponse> CreateAsync(CreateParcelRequest request)
     {
         var parcel = _mapper.Map<Parcel>(request);
 
         try
         {
-            await _parcelRepository.CreateAsync(parcel);
+            int id = await _parcelRepository.CreateAsync(parcel);
+            return new CreateParcelResponse { Id = id, };
         }
         catch (DbUpdateConcurrencyException)
         {

@@ -57,8 +57,8 @@ public class ParcelsController : ControllerBase
     [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
     public async Task<IActionResult> Create([FromBody] CreateParcelRequest request)
     {
-        await _parcelService.CreateAsync(request);
-        return NoContent();
+        //TODO: URI
+        return Created("", await _parcelService.CreateAsync(request));
     }
 
     [HttpPut("{parcelId:int}")]

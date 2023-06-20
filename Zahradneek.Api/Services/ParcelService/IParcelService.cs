@@ -11,7 +11,7 @@ public interface IParcelService
 
     public Task<IEnumerable<ParcelInfoResponse>> GetAllByOwnerIdAsync(int ownerId);
 
-    public Task CreateAsync(CreateParcelRequest request);
+    public Task<CreateParcelResponse> CreateAsync(CreateParcelRequest request);
 
     public Task UpdateByIdAsync(UpdateParcelRequest request, int parcelId);
 

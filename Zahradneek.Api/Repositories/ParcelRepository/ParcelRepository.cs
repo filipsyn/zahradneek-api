@@ -49,10 +49,12 @@ public class ParcelRepository : IParcelRepository
             .Where(x => x.OwnerId == ownerId)
             .ToListAsync();
 
-    public async Task CreateAsync(Parcel parcel)
+    public async Task<int> CreateAsync(Parcel parcel)
     {
         _db.Parcels.Add(parcel);
         await _db.SaveChangesAsync();
+
+        return parcel.Id;
     }
 
     public async Task UpdateByIdAsync(Parcel updatedParcel, int parcelId)
