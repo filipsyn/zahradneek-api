@@ -40,7 +40,7 @@ public class NewsController : ControllerBase
     }
 
     [HttpPut("{articleId:int}")]
-    [Authorize(Roles = AuthorizationPolicies.AuthorOrAdmin)]
+    [Authorize(Policy = AuthorizationPolicies.AuthorOrAdmin)]
     [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
     public async Task<IActionResult> UpdateById([FromBody] UpdateNewsRequest request, [FromRoute] int articleId)
     {
@@ -49,7 +49,7 @@ public class NewsController : ControllerBase
     }
 
     [HttpDelete("{articleId:int}")]
-    [Authorize(Roles = AuthorizationPolicies.AuthorOrAdmin)]
+    [Authorize(Policy = AuthorizationPolicies.AuthorOrAdmin)]
     [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
     [ProducesResponseType(statusCode: StatusCodes.Status404NotFound)]
     [ProducesResponseType(statusCode: StatusCodes.Status409Conflict)]
