@@ -7,7 +7,8 @@ builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
     {
-        policy.AllowAnyOrigin()
+        policy
+            .AllowAnyOrigin()
             .AllowAnyMethod()
             .AllowAnyHeader();
     });
@@ -26,6 +27,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors();
+
 app.UseAuthorization();
 
 app.MapControllers();
@@ -34,6 +37,5 @@ app.MapHealthChecks("/health");
 
 app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
 
-app.UseCors();
 
 app.Run();
